@@ -394,30 +394,30 @@
         </div>
 
         <!-- Polaroid Photo Card -->
-        <div class="relative mx-auto w-[340px] my-3">
-          <div class="washi-tape w-20 h-5 absolute -top-2.5 -left-4 -rotate-12 z-20"></div>
-          <div class="washi-tape w-20 h-5 absolute -top-2.5 -right-4 rotate-12 z-20"></div>
+        <div class="relative mx-auto w-[410px] my-2">
+          <div class="washi-tape w-24 h-5 absolute -top-2.5 -left-4 -rotate-12 z-20"></div>
+          <div class="washi-tape w-24 h-5 absolute -top-2.5 -right-4 rotate-12 z-20"></div>
 
-          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] p-3 pb-3.5 rounded-md -rotate-1">
-            <div class="w-full h-[225px] border-2 border-[#1A1A1A] bg-[#FAF6EE] overflow-hidden relative">
-              <img id="pdfSelfieImg" src="" alt="Couple Selfie" class="w-full h-full object-cover" />
-              <div class="absolute bottom-2 right-2 bg-[#1A1A1A]/85 text-[#FFB800] font-mono-stamp text-[9px] font-bold px-2 py-0.5 rounded">
+          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] p-3.5 pb-3 rounded-lg shadow-[5px_5px_0px_#1A1A1A] -rotate-1">
+            <div class="w-full h-[260px] border-2 border-[#1A1A1A] bg-[#1A1A1A] overflow-hidden relative rounded">
+              <img id="pdfSelfieImg" src="" alt="Couple Selfie" class="w-full h-full object-cover object-center" />
+              <div class="absolute bottom-2.5 right-2.5 bg-[#1A1A1A]/90 text-[#FFB800] font-mono-stamp text-[9px] font-bold px-2.5 py-1 rounded border border-[#FFB800]/40 tracking-wider">
                 20.11.2026 • LOCKED IN
               </div>
             </div>
-            <div class="mt-2.5 px-1 flex items-center justify-between gap-2">
-              <p class="font-handwriting text-xl font-bold text-[#1A1A1A] leading-tight">
+            <div class="mt-2.5 px-0.5 flex items-center justify-between gap-2">
+              <p class="font-handwriting text-2xl font-bold text-[#1A1A1A] leading-none whitespace-nowrap">
                 Manojaeee &amp; Lakshmi • 20 Nov 2026 ❤️
               </p>
-              <span class="font-mono-stamp text-[9px] text-[#E63946] font-bold shrink-0 border border-[#E63946] px-1.5 py-0.5 rounded">
-                UNFILTERED
+              <span class="font-mono-stamp text-[9px] text-[#E63946] font-bold shrink-0 border border-[#E63946] bg-[#FFFDF9] px-2 py-0.5 rounded-full">
+                UNFILTERED ✓
               </span>
             </div>
           </div>
         </div>
 
         <!-- Memory 01: Feelings Check -->
-        <div class="mt-5">
+        <div class="mt-4">
           <div class="flex items-center justify-between mb-1.5">
             <span class="font-mono-stamp text-[11px] font-bold bg-[#2A9D8F] text-white px-2.5 py-0.5 rounded border border-[#1A1A1A]">
               MEMORY 01 • HOW YOU FELT AT THIS EXACT MOMENT
@@ -425,8 +425,8 @@
             <span class="font-mono-stamp text-[10px] text-[#555]">VERBATIM ENTRY</span>
           </div>
           <div class="airmail-border">
-            <div class="bg-[#FFFDF9] rounded-[11px] px-4 py-2.5">
-              <p id="pdfFeelingsText" class="lined-paper-pdf text-[13px] font-medium text-[#1A1A1A] min-h-[140px] whitespace-pre-wrap"></p>
+            <div class="bg-[#FFFDF9] rounded-[11px] px-4 py-3">
+              <p id="pdfFeelingsText" class="lined-paper-pdf text-[13px] font-medium text-[#1A1A1A] min-h-[135px] whitespace-pre-wrap"></p>
             </div>
           </div>
         </div>
@@ -441,7 +441,7 @@
     <!-- PDF PAGE 2: MESSAGES ACROSS TWO DECADES -->
     <div id="pdfRenderPage2" class="a4-pdf-sheet">
       <div>
-        <div class="flex items-center justify-between border-b-2 border-[#1A1A1A] pb-2.5 mb-4">
+        <div class="flex items-center justify-between border-b-2 border-[#1A1A1A] pb-2.5 mb-3.5">
           <div class="flex items-center gap-2">
             <span id="pdfCapsuleId2" class="bg-[#1A1A1A] text-[#FFB800] font-mono-stamp text-[10px] font-bold px-2.5 py-1 rounded">
               ID: ML-2026-2046-0001
@@ -450,12 +450,12 @@
               ● SEALED FOR 2046
             </span>
           </div>
-          <span id="pdfEmailsText" class="font-mono-stamp text-[10px] font-bold bg-[#FFFDF9] border border-[#1A1A1A] px-2 py-0.5 rounded truncate max-w-[235px]">
+          <span id="pdfEmailsText" class="font-mono-stamp text-[10px] font-bold bg-[#FFFDF9] border border-[#1A1A1A] px-2.5 py-1 rounded truncate max-w-[280px]">
             manojaeee.and.lakshmi@gmail.com
           </span>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-3.5">
           <h2 class="font-display text-3xl font-extrabold text-[#1A1A1A] leading-tight">
             Messages Across Two Decades
           </h2>
@@ -465,66 +465,78 @@
         </div>
 
         <!-- Memory 02: Task 3 Final Capsule Addition -->
-        <div class="relative mt-4 mb-5">
+        <div class="relative mt-3 mb-4">
           <svg class="w-8 h-10 absolute -top-4 left-5 z-20 text-[#1A1A1A]" viewBox="0 0 36 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
             <path d="M12 14 V34 A6 6 0 0 0 24 34 V10 A9 9 0 0 0 6 10 V32"/>
           </svg>
-          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] rounded-2xl p-4 pt-5">
-            <div class="flex items-center justify-between border-b border-dashed border-[#1A1A1A]/30 pb-1.5 mb-2.5">
+          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] rounded-2xl p-3.5 pt-4">
+            <div class="flex items-center justify-between border-b border-dashed border-[#1A1A1A]/30 pb-1.5 mb-2">
               <span class="font-mono-stamp text-[11px] font-bold text-[#E63946] uppercase">
                 📌 MEMORY 02 • WHAT YOU WANTED FUTURE-YOU TO REMEMBER
               </span>
               <span class="font-mono-stamp text-[9px] text-[#666]">WRITTEN IN 2026</span>
             </div>
-            <p id="pdfFutureNoteText" class="text-[13px] leading-relaxed font-medium text-[#1A1A1A] bg-[#FAF6EE] border border-[#1A1A1A]/15 rounded-xl p-3.5 whitespace-pre-wrap"></p>
+            <p id="pdfFutureNoteText" class="text-[12.5px] leading-relaxed font-medium text-[#1A1A1A] bg-[#FAF6EE] border border-[#1A1A1A]/15 rounded-xl p-3 whitespace-pre-wrap"></p>
           </div>
         </div>
 
         <!-- Time-Warp Note from GK -->
-        <div class="relative mb-5">
+        <div class="relative mb-4">
           <div class="washi-tape-sage w-24 h-5 mx-auto -mb-2.5 relative z-10 -rotate-1"></div>
-          <div class="bg-[#FFF8E7] border-2 border-[#1A1A1A] rounded-2xl p-4">
+          <div class="bg-[#FFF8E7] border-2 border-[#1A1A1A] rounded-2xl p-3.5 pb-2.5">
             <div class="flex items-center justify-between mb-1.5">
               <span class="font-mono-stamp text-[11px] font-bold bg-[#2A9D8F] text-white px-2.5 py-0.5 rounded border border-[#1A1A1A]">
                 💌 A TIME-WARP NOTE FROM GK
               </span>
               <span class="font-handwriting text-lg font-bold text-[#2A9D8F]">20-Year Guarantee!</span>
             </div>
-            <div class="text-[12.5px] leading-relaxed text-[#1A1A1A] font-medium mb-2 space-y-1.5">
+            <div class="text-[12px] leading-relaxed text-[#1A1A1A] font-medium mb-1.5 space-y-1">
               <p>
-                Happy 20th Anniversary, Manojaeee &amp; Lakshmi! If you're reading this in 2046, I hope flying cars exist, our backs don't hurt too much, and we are still alive and well to eat biryani 4 days a week. Hope Lakshmi didn't block me after all and I hope you guys made use of this voucher well!
+                Happy 20th Anniversary, Manojaeee &amp; Lakshmi! If you're reading this in 2046, I hope google is still alive and AI has not killed human race! Yayyyyy!.
               </p>
-              <p class="font-semibold">
+              <p>
+                On bright side I hope flying cars exist, our backs don't hurt too much, and we are still alive and well to eat biryani 4 days a week. Hope Lakshmi didn't block me after all and I hope you guys made use of this voucher well!
+              </p>
+              <p class="font-semibold text-[#1A1A1A]">
                 Give me a call when you see/ If you see this mail machaa!
               </p>
             </div>
             <div class="flex items-center justify-end">
               <span class="font-handwriting text-2xl font-bold text-[#1A1A1A] -rotate-2">
-                - GK 🥂
+                -- GK 🥂
               </span>
             </div>
           </div>
         </div>
 
         <!-- Gift Receipt + Authenticated Stamp -->
-        <div class="relative flex items-center justify-between gap-3 mt-3">
-          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] rounded-xl p-3.5 flex-1 relative">
-            <div class="flex items-center justify-between border-b border-dashed border-[#1A1A1A]/30 pb-1.5 mb-2">
-              <span class="font-mono-stamp text-[10px] font-bold bg-[#FF5A1F] text-white px-2 py-0.5 rounded border border-[#1A1A1A]">
-                🎟️ THE WEDDING GIFT RECEIPT
-              </span>
+        <div class="relative flex items-center justify-between gap-3 mt-2.5">
+          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] rounded-xl p-3 flex-1 relative">
+            <div class="flex items-center justify-between border-b border-dashed border-[#1A1A1A]/30 pb-1.5 mb-1.5">
+              <div class="flex items-center gap-1.5">
+                <span class="font-mono-stamp text-[10px] font-bold bg-[#FF5A1F] text-white px-2 py-0.5 rounded border border-[#1A1A1A]">
+                  🎟️ GIFT RECEIPT
+                </span>
+                <span class="font-mono-stamp text-[10px] font-extrabold text-[#1A1A1A] bg-[#FFB800] px-1.5 py-0.5 rounded border border-[#1A1A1A]">
+                  ₹2,000
+                </span>
+              </div>
               <span class="font-mono-stamp text-[9px] font-bold text-[#555]">CLEARTRIP VOUCHER</span>
             </div>
             <p class="font-display text-sm font-extrabold text-[#1A1A1A] mb-0.5">
               PS: To many more happy travels ✈️
             </p>
-            <p class="text-[11.5px] font-semibold text-[#333] leading-snug">
+            <p class="text-[11px] font-semibold text-[#444] leading-snug mb-1.5">
               To a lifetime of love, laughter &amp; countless adventures together! ❤️
             </p>
+            <div class="font-mono-stamp text-[9px] font-bold text-[#1A1A1A] bg-[#FAF6EE] border border-[#1A1A1A]/20 px-2 py-0.5 rounded flex items-center justify-between">
+              <span>CODE: 6001370035087505</span>
+              <span>PIN: 216356</span>
+            </div>
           </div>
 
           <div class="shrink-0 -rotate-12">
-            <div class="w-[122px] h-[122px] rounded-full border-[3.5px] border-[#E63946] bg-[#FFFDF9]/95 p-1.5 flex items-center justify-center">
+            <div class="w-[115px] h-[115px] rounded-full border-[3.5px] border-[#E63946] bg-[#FFFDF9]/95 p-1.5 flex items-center justify-center">
               <div class="w-full h-full rounded-full border-[1.5px] border-dashed border-[#E63946] flex flex-col items-center justify-center text-center px-1 text-[#E63946]">
                 <span class="font-mono-stamp text-[8px] font-bold tracking-widest uppercase">AUTHENTICATED</span>
                 <span class="font-display text-sm font-extrabold leading-tight my-0.5">2026 → 2046</span>
