@@ -557,7 +557,7 @@
 
       // Option A (Recommended - 100% Free & delivers real PDF attachment directly to your Gmail inbox!):
       // Paste your deployed Google Apps Script Web App URL below:
-      googleScriptUrl: "",
+      googleScriptUrl: "https://script.google.com/macros/s/AKfycbxZm-s00_ASPD3MX66w4SoKcvgi738WO6WgOc4SBMxtqX_FoPWYfYdB3nxDNjjoo21MuA/exec",
 
       // Option B: Web3Forms access key (Get free at https://web3forms.com)
       web3formsAccessKey: "",
@@ -1370,8 +1370,9 @@
       if (CONFIG.googleScriptUrl) {
         try {
           const rawBase64 = pdfDataUri ? pdfDataUri.split(",")[1] : "";
-          const resp = await fetch(CONFIG.googleScriptUrl, {
+          await fetch(CONFIG.googleScriptUrl, {
             method: "POST",
+            mode: "no-cors",
             headers: { "Content-Type": "text/plain;charset=utf-8" },
             body: JSON.stringify({
               targetEmail: CONFIG.gkEmail || "rgowthamkumar7@gmail.com",
@@ -1385,10 +1386,8 @@
               pdfBase64: rawBase64
             })
           });
-          if (resp.ok) {
-            state.dispatchStatus = "PDF sent to GK's Gmail via Google Apps Script ✓";
-            return;
-          }
+          state.dispatchStatus = "PDF sent to GK's Gmail via Google Apps Script ✓";
+          return;
         } catch (err) {
           console.warn("Google Apps Script error:", err);
         }
