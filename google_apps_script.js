@@ -31,16 +31,14 @@ function doPost(e) {
       "Submitted At: " + data.submittedAt + "\n" +
       "Emails Registered to receive this in 2046: " + data.recipients + "\n\n" +
       "====================================================\n" +
-      "THEIR SEALS & SECRETS\n" +
+      "🔒 COUPLE ENCRYPTED VAULT (100% PRIVATE)\n" +
       "====================================================\n" +
-      "TASK 2: How they felt today:\n" +
-      "\"" + (data.feelings || "N/A") + "\"\n\n" +
-      "TASK 3: Note to their future 2046 selves:\n" +
-      "\"" + (data.note || "N/A") + "\"\n\n" +
-      "====================================================\n" +
+      "Manoj & Lakshmi went completely unfiltered! Their responses are protected\n" +
+      "and locked with a secret couple password that only the two of them know.\n\n" +
       "📎 ATTACHMENT:\n" +
-      "The official 2-Page A4 Keepsake Slambook PDF (with their wedding selfie, answers, and time stamps) is attached to this email!\n\n" +
-      "Save this email securely in your inbox so you can surprise them on 20 November 2046! ❤️";
+      "The official 2-Page A4 Keepsake Slambook PDF is attached to this email,\n" +
+      "PASSWORD-PROTECTED & ENCRYPTED with their couple password! Nobody else can open it until 2046.\n\n" +
+      "Save this email securely in your inbox so you can deliver it on 20 November 2046! ❤️";
 
     var emailOptions = {
       to: targetEmail,

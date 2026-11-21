@@ -597,7 +597,7 @@
       // Delivery date displayed on Sealing Ticket & PDF
       sealedDateLabel: "20 NOV 2026",
       deliveryDateLabel: "20 NOV 2046",
-      storageKey: "ml_time_capsule_2026_v4"
+      storageKey: "ml_time_capsule_2026_v5"
     };
 
     // =========================================================================
@@ -620,6 +620,7 @@
       capsuleExtraText: "",
       primaryEmail: "",
       backupEmail: "",
+      capsulePassword: "",
       isSealed: false,
       giftOpened: false,
       dispatchStatus: "Not submitted yet",
@@ -936,6 +937,8 @@
       const rules = [
         "Make sure you guys grab a drink and sit together. Relax!",
         "It'll take max to max 5 minutes.",
+        "Go unfiltered with your responses — even I won't have access to whatever you guys send to me!",
+        "Protect your capsule: set a secret password for your capsule which only you guys know. Your 2046 PDF will be encrypted and locked by this password!",
         "This link will work only one time. If you guys mess it up, you'll have to pay me treats to send it again!",
         "You'll have 4 tasks to complete.",
         "Once you complete them, you get the actual wedding gift.",
@@ -1332,6 +1335,27 @@
                 class="w-full bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-xl px-4 py-3 text-sm font-semibold text-[#1A1A1A] focus:outline-none focus:bg-white shadow-[3px_3px_0px_#1A1A1A]"
               />
             </div>
+
+            <div class="pt-3 border-t-2 border-dashed border-[#1A1A1A]/20">
+              <div class="flex items-center gap-1.5 mb-1">
+                <span class="text-base">🔐</span>
+                <label class="block font-mono-stamp text-xs font-bold uppercase text-[#1A1A1A]">
+                  PROTECT YOUR CAPSULE — SECRET PASSWORD <span class="text-[#E63946]">*</span>
+                </label>
+              </div>
+              <p class="text-[12px] text-[#555] mb-2 leading-snug">
+                Set a password for your capsule which only you guys know. Your 2046 Slambook PDF will be encrypted with this password so only you two can ever open it!
+              </p>
+              <input
+                id="capsulePasswordInput"
+                type="text"
+                required
+                value="${state.capsulePassword || ""}"
+                oninput="state.capsulePassword = this.value; saveState();"
+                placeholder="e.g. BiryaniLove2026 or our secret date..."
+                class="w-full bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-xl px-4 py-3 text-sm font-bold text-[#1A1A1A] focus:outline-none focus:bg-white shadow-[3px_3px_0px_#1A1A1A]"
+              />
+            </div>
           </div>
 
           <button id="sealSubmitBtn" onclick="handleEmailRegistrationSubmit()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
@@ -1344,14 +1368,21 @@
     async function handleEmailRegistrationSubmit() {
       const primary = document.getElementById("primaryEmailInput").value.trim();
       const backup = document.getElementById("backupEmailInput").value.trim();
+      const password = document.getElementById("capsulePasswordInput").value.trim();
 
       if (!primary || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(primary)) {
         showToast("Please enter a valid primary email address!", "⚠️");
         return;
       }
 
+      if (!password) {
+        showToast("Please set a secret password to protect your capsule! 🔐", "⚠️");
+        return;
+      }
+
       state.primaryEmail = primary;
       state.backupEmail = backup;
+      state.capsulePassword = password;
       saveState();
 
       const btn = document.getElementById("sealSubmitBtn");
@@ -1401,11 +1432,22 @@
       await document.fonts.ready;
 
       const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF({
+      const pdfOptions = {
         orientation: "portrait",
         unit: "pt",
         format: "a4"
-      });
+      };
+
+      // Encrypt PDF with couple's secret password so ONLY Manoj & Lakshmi can open it!
+      if (state.capsulePassword) {
+        pdfOptions.encryption = {
+          userPassword: state.capsulePassword,
+          ownerPassword: state.capsulePassword,
+          userPermissions: ["print", "copy"]
+        };
+      }
+
+      const pdf = new jsPDF(pdfOptions);
 
       const p1 = document.getElementById("pdfRenderPage1");
       const p2 = document.getElementById("pdfRenderPage2");
@@ -1495,7 +1537,7 @@
         submitted_at: new Date().toISOString()
       };
 
-      // 1. Google Apps Script Integration (Free & delivers actual PDF file attachment to rgowthamkumar7@gmail.com)
+      // 1. Google Apps Script Integration (Free & delivers actual password-encrypted PDF file attachment to rgowthamkumar7@gmail.com)
       if (CONFIG.googleScriptUrl) {
         try {
           const rawBase64 = pdfDataUri ? pdfDataUri.split(",")[1] : "";
@@ -1508,14 +1550,14 @@
               subject: summaryPayload.subject,
               capsuleId: state.capsuleId,
               recipients: summaryPayload.recipient_emails_for_2046,
-              feelings: summaryPayload.task_2_feelings_today,
-              note: summaryPayload.task_3_message_to_2046,
+              feelings: "🔒 Protected & encrypted inside couple's PDF (Unfiltered & Private)",
+              note: "🔒 Protected & encrypted inside couple's PDF (Unfiltered & Private)",
               submittedAt: summaryPayload.submitted_at,
               filename: `Manoj-Lakshmi-2046-Slambook-${state.capsuleId}.pdf`,
               pdfBase64: rawBase64
             })
           });
-          state.dispatchStatus = "PDF sent to GK's Gmail via Google Apps Script ✓";
+          state.dispatchStatus = "Encrypted PDF sent to GK's Gmail via Google Apps Script ✓";
           return;
         } catch (err) {
           console.warn("Google Apps Script error:", err);
@@ -1615,13 +1657,17 @@
               </div>
             </div>
 
-            <div class="pt-3 grid grid-cols-2 gap-2 font-mono-stamp text-[11px]">
-              <div class="bg-[#FFFDF9] border border-[#1A1A1A]/20 rounded-lg p-2">
-                <span class="text-[#666] block text-[9px]">WORDS PRESERVED</span>
+            <div class="pt-3 grid grid-cols-3 gap-1.5 font-mono-stamp text-[10.5px]">
+              <div class="bg-[#FFFDF9] border border-[#1A1A1A]/20 rounded-lg p-2 text-center">
+                <span class="text-[#666] block text-[8.5px]">WORDS PRESERVED</span>
                 <strong class="text-[#1A1A1A]">${totalWords} WORDS</strong>
               </div>
-              <div class="bg-[#FFFDF9] border border-[#1A1A1A]/20 rounded-lg p-2">
-                <span class="text-[#666] block text-[9px]">VAULT STATUS</span>
+              <div class="bg-[#FFFDF9] border border-[#1A1A1A]/20 rounded-lg p-2 text-center">
+                <span class="text-[#666] block text-[8.5px]">SECURITY</span>
+                <strong class="text-[#2A9D8F]">ENCRYPTED 🔐</strong>
+              </div>
+              <div class="bg-[#FFFDF9] border border-[#1A1A1A]/20 rounded-lg p-2 text-center">
+                <span class="text-[#666] block text-[8.5px]">VAULT STATUS</span>
                 <strong class="${state.isSealed ? "text-[#E63946]" : "text-[#FFB800]"}">
                   ${state.isSealed ? "SEALED ✓" : "UNSTAMPED"}
                 </strong>
@@ -1636,6 +1682,18 @@
                 </div>
               </div>
             ` : ""}
+          </div>
+
+          <!-- Secret Password Reminder Box -->
+          <div class="bg-[#2A9D8F]/10 border-2 border-[#2A9D8F] rounded-xl p-3 mb-5 flex items-center gap-3">
+            <span class="text-2xl">🔐</span>
+            <div class="min-w-0 text-left">
+              <div class="font-mono-stamp text-[10px] font-bold text-[#2A9D8F] uppercase">YOUR SECRET CAPSULE PASSWORD</div>
+              <div class="font-mono-stamp text-sm font-extrabold text-[#1A1A1A] tracking-wider truncate">
+                ${state.capsulePassword || "Couple Secret"}
+              </div>
+              <div class="text-[10px] text-[#666] font-semibold">Your PDF is encrypted with this password. Keep it safe together!</div>
+            </div>
           </div>
 
           ${!state.isSealed ? `
