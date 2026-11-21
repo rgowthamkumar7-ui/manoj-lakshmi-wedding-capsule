@@ -552,12 +552,17 @@
       voucherPin: "216356",
       voucherAmount: "₹2,000",
 
-      // Silent Email Dispatch to GK when couple submits Screen 8:
-      // Option A (Recommended - Free & Zero Backend): Get an access key at https://web3forms.com
-      // and paste it below. Web3Forms will email all answers + capsule details straight to GK!
+      // GK's notification email (where the PDF and capsule will be delivered)
+      gkEmail: "rgowthamkumar7@gmail.com",
+
+      // Option A (Recommended - 100% Free & delivers real PDF attachment directly to your Gmail inbox!):
+      // Paste your deployed Google Apps Script Web App URL below:
+      googleScriptUrl: "",
+
+      // Option B: Web3Forms access key (Get free at https://web3forms.com)
       web3formsAccessKey: "",
 
-      // Option B: Or paste a Formspree endpoint URL (e.g., "https://formspree.io/f/xxxxxxx")
+      // Option C: Or paste a Formspree endpoint URL (e.g., "https://formspree.io/f/xxxxxxx")
       formspreeEndpoint: "",
 
       // Delivery date displayed on Sealing Ticket & PDF
@@ -1361,7 +1366,35 @@
         submitted_at: new Date().toISOString()
       };
 
-      // 1. Web3Forms Integration (if GK pasted an access key)
+      // 1. Google Apps Script Integration (Free & delivers actual PDF file attachment to rgowthamkumar7@gmail.com)
+      if (CONFIG.googleScriptUrl) {
+        try {
+          const rawBase64 = pdfDataUri ? pdfDataUri.split(",")[1] : "";
+          const resp = await fetch(CONFIG.googleScriptUrl, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify({
+              targetEmail: CONFIG.gkEmail || "rgowthamkumar7@gmail.com",
+              subject: summaryPayload.subject,
+              capsuleId: state.capsuleId,
+              recipients: summaryPayload.recipient_emails_for_2046,
+              feelings: summaryPayload.task_2_feelings_today,
+              note: summaryPayload.task_3_message_to_2046,
+              submittedAt: summaryPayload.submitted_at,
+              filename: `Manoj-Lakshmi-2046-Slambook-${state.capsuleId}.pdf`,
+              pdfBase64: rawBase64
+            })
+          });
+          if (resp.ok) {
+            state.dispatchStatus = "PDF sent to GK's Gmail via Google Apps Script ✓";
+            return;
+          }
+        } catch (err) {
+          console.warn("Google Apps Script error:", err);
+        }
+      }
+
+      // 2. Web3Forms Integration (if GK pasted an access key)
       if (CONFIG.web3formsAccessKey) {
         try {
           const formData = new FormData();
