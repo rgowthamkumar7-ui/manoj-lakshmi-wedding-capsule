@@ -399,24 +399,24 @@
         </div>
 
         <!-- Polaroid Photo Card -->
-        <div style="position: relative; margin: 0 auto 20px auto; width: 440px;">
-          <div class="washi-tape" style="width: 90px; height: 22px; position: absolute; top: -11px; left: -14px; transform: rotate(-6deg); z-index: 20;"></div>
-          <div class="washi-tape" style="width: 90px; height: 22px; position: absolute; top: -11px; right: -14px; transform: rotate(6deg); z-index: 20;"></div>
+        <div id="pdfPolaroidWrapper" style="position: relative; margin: 0 auto 16px auto; width: 350px;">
+          <div class="washi-tape" style="width: 80px; height: 20px; position: absolute; top: -10px; left: -10px; transform: rotate(-5deg); z-index: 20;"></div>
+          <div class="washi-tape" style="width: 80px; height: 20px; position: absolute; top: -10px; right: -10px; transform: rotate(5deg); z-index: 20;"></div>
 
-          <div style="background: #FFFDF9; border: 2.5px solid #1A1A1A; padding: 14px 14px 12px 14px; border-radius: 14px; box-shadow: 6px 6px 0px #1A1A1A;">
-            <!-- Canvas Photo Area: Exact ratio, cropped with 0% distortion! -->
-            <div style="position: relative; width: 100%; border: 2px solid #1A1A1A; border-radius: 8px; overflow: hidden; background: #FAF6EE;">
-              <canvas id="pdfSelfieCanvas" width="820" height="660" style="width: 100%; height: 320px; display: block; object-fit: cover;"></canvas>
-              <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(26,26,26,0.92); color: #FFB800; font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(255,184,0,0.4); letter-spacing: 0.5px;">
+          <div style="background: #FFFDF9; border: 2.5px solid #1A1A1A; padding: 12px 12px 10px 12px; border-radius: 14px; box-shadow: 5px 5px 0px #1A1A1A;">
+            <!-- Canvas Photo Area: Exact ratio, scaled with 0% distortion & 0% cropping! -->
+            <div id="pdfCanvasContainer" style="position: relative; width: 100%; border: 2px solid #1A1A1A; border-radius: 8px; overflow: hidden; background: #FAF6EE; display: flex; align-items: center; justify-content: center;">
+              <canvas id="pdfSelfieCanvas" width="600" height="750" style="display: block; width: 300px; height: 375px;"></canvas>
+              <div id="pdfLockedInBadge" style="position: absolute; bottom: 8px; right: 8px; background: rgba(26,26,26,0.90); color: #FFB800; font-family: 'Space Mono', monospace; font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,184,0,0.4); letter-spacing: 0.5px;">
                 20.11.2026 • LOCKED IN
               </div>
             </div>
             <!-- Polaroid Caption -->
-            <div style="margin-top: 10px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-              <p style="font-family: 'Caveat', cursive; font-size: 26px; font-weight: 700; color: #1A1A1A; margin: 0; line-height: 1; white-space: nowrap;">
+            <div id="pdfPolaroidCaptionRow" style="margin-top: 10px; padding: 0 4px; display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+              <p id="pdfPolaroidCaptionText" style="font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700; color: #1A1A1A; margin: 0; line-height: 1.1; white-space: nowrap;">
                 Manojaeee &amp; Lakshmi • 20 Nov 2026 ❤️
               </p>
-              <span style="font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; color: #E63946; border: 1.5px solid #E63946; background: #FFFDF9; padding: 2px 8px; border-radius: 9999px; flex-shrink: 0;">
+              <span id="pdfUnfilteredBadge" style="font-family: 'Space Mono', monospace; font-size: 9.5px; font-weight: 700; color: #E63946; border: 1.5px solid #E63946; background: #FFFDF9; padding: 2px 7px; border-radius: 9999px; flex-shrink: 0;">
                 UNFILTERED ✓
               </span>
             </div>
@@ -424,7 +424,7 @@
         </div>
 
         <!-- Memory 01: Feelings Check -->
-        <div style="margin-top: 22px;">
+        <div id="pdfMemory01Section" style="margin-top: 16px;">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
             <span style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; background: #2A9D8F; color: #FFFFFF; padding: 4px 10px; border-radius: 4px; border: 1.5px solid #1A1A1A;">
               MEMORY 01 • HOW YOU FELT AT THIS EXACT MOMENT
@@ -434,8 +434,8 @@
             </span>
           </div>
           <div class="airmail-border" style="padding: 4px; border-radius: 12px;">
-            <div style="background: #FFFDF9; border-radius: 8px; padding: 16px 20px;">
-              <p id="pdfFeelingsText" class="lined-paper-pdf" style="font-size: 13.5px; font-weight: 500; color: #1A1A1A; min-height: 130px; margin: 0; white-space: pre-wrap; line-height: 28px; background-size: 100% 28px;"></p>
+            <div style="background: #FFFDF9; border-radius: 8px; padding: 14px 18px;">
+              <p id="pdfFeelingsText" class="lined-paper-pdf" style="font-size: 13.5px; font-weight: 500; color: #1A1A1A; min-height: 125px; margin: 0; white-space: pre-wrap; line-height: 26px; background-size: 100% 26px; word-break: break-word; overflow-wrap: break-word;"></p>
             </div>
           </div>
         </div>
@@ -597,7 +597,7 @@
       // Delivery date displayed on Sealing Ticket & PDF
       sealedDateLabel: "20 NOV 2026",
       deliveryDateLabel: "20 NOV 2046",
-      storageKey: "ml_time_capsule_2026_v5"
+      storageKey: "ml_time_capsule_2026_v6"
     };
 
     // =========================================================================
@@ -614,6 +614,8 @@
       linkLocked: false,
       capsuleId: generateCapsuleId(),
       selfieDataUrl: null,
+      selfieAspectCategory: "1:1", // "1:1" | "4:5" | "9:16"
+      selfieRawAspect: 1.0,
       selfieSubmitted: false,
       feelingsText: "",
       feelingsSubmitted: false,
@@ -715,8 +717,8 @@
       });
     }
 
-    // Draws and crops any image onto an exact canvas with 0% distortion (never stretches aspect ratio!)
-    function drawCroppedPhotoToCanvas(canvas, imageSrc) {
+    // Draws photo onto canvas preserving 100% of the image (CONTAIN mode) with 0% distortion or cropping!
+    function drawPhotoToCanvas(canvas, imageSrc) {
       return new Promise((resolve) => {
         if (!imageSrc) return resolve();
         const img = new Image();
@@ -726,69 +728,31 @@
           const ch = canvas.height;
           ctx.clearRect(0, 0, cw, ch);
 
+          // Warm archival background for any slight edge letterboxing
           ctx.fillStyle = "#FAF6EE";
           ctx.fillRect(0, 0, cw, ch);
 
-          const imgAspect = img.width / img.height;
-          const canvasAspect = cw / ch;
-          let sx, sy, sw, sh;
+          const iAspect = img.naturalWidth / img.naturalHeight;
+          const cAspect = cw / ch;
 
-          if (imgAspect > canvasAspect) {
-            sh = img.height;
-            sw = img.height * canvasAspect;
-            sx = (img.width - sw) / 2;
-            sy = 0;
+          let drawW, drawH, dx, dy;
+          if (iAspect > cAspect) {
+            drawW = cw;
+            drawH = cw / iAspect;
+            dx = 0;
+            dy = (ch - drawH) / 2;
           } else {
-            sw = img.width;
-            sh = img.width / canvasAspect;
-            sx = 0;
-            sy = Math.max(0, (img.height - sh) * 0.20);
+            drawH = ch;
+            drawW = ch * iAspect;
+            dx = (cw - drawW) / 2;
+            dy = (ch - drawH) / 2;
           }
 
-          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
+          ctx.drawImage(img, dx, dy, drawW, drawH);
           resolve();
         };
         img.onerror = () => resolve();
         img.src = imageSrc;
-      });
-    }
-
-    // Crops any uploaded or raw image to exact targetAspect (default 1.0 for square Polaroid)
-    // with face/upper-third centering so the selfie is NEVER stretched, distorted, or squashed!
-    function cropImageToAspectRatio(sourceDataUrl, targetAspect = 1) {
-      return new Promise((resolve) => {
-        if (!sourceDataUrl) return resolve("");
-        const img = new Image();
-        img.onload = () => {
-          const imgAspect = img.width / img.height;
-          let sx, sy, sWidth, sHeight;
-
-          if (imgAspect > targetAspect) {
-            // Image is wider than target: crop sides equally
-            sHeight = img.height;
-            sWidth = img.height * targetAspect;
-            sx = (img.width - sWidth) / 2;
-            sy = 0;
-          } else {
-            // Image is taller than target: crop top/bottom
-            // Bias slightly to upper-third (0.25) so heads/faces are centered and not cut off
-            sWidth = img.width;
-            sHeight = img.width / targetAspect;
-            sx = 0;
-            sy = Math.max(0, (img.height - sHeight) * 0.25);
-          }
-
-          const canvas = document.createElement("canvas");
-          const outW = 800;
-          const outH = Math.round(outW / targetAspect);
-          canvas.width = outW;
-          canvas.height = outH;
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, outW, outH);
-          resolve(canvas.toDataURL("image/jpeg", 0.92));
-        };
-        img.onerror = () => resolve(sourceDataUrl);
-        img.src = sourceDataUrl;
       });
     }
 
@@ -938,7 +902,6 @@
         "Make sure you guys grab a drink and sit together. Relax!",
         "It'll take max to max 5 minutes.",
         "Go unfiltered with your responses — even I won't have access to whatever you guys send to me!",
-        "Protect your capsule: set a secret password for your capsule which only you guys know. Your 2046 PDF will be encrypted and locked by this password!",
         "This link will work only one time. If you guys mess it up, you'll have to pay me treats to send it again!",
         "You'll have 4 tasks to complete.",
         "Once you complete them, you get the actual wedding gift.",
@@ -1002,6 +965,17 @@
     // SCREEN 4: Task 1 — The Candid Selfie (1 of 3 active tasks)
     function renderScreen4Task1Selfie() {
       const hasPhoto = Boolean(state.selfieDataUrl);
+      const aspect = state.selfieAspectCategory || "1:1";
+
+      let frameClass = "max-w-[290px]";
+      let aspectClass = "aspect-square";
+      if (aspect === "9:16") {
+        frameClass = "max-w-[240px]";
+        aspectClass = "aspect-[9/16]";
+      } else if (aspect === "4:5") {
+        frameClass = "max-w-[270px]";
+        aspectClass = "aspect-[4/5]";
+      }
 
       return `
         <div class="zine-card p-6 sm:p-7 screen-enter">
@@ -1031,11 +1005,11 @@
 
           <div class="mb-5">
             ${hasPhoto ? `
-              <!-- Tilted Polaroid Frame -->
-              <div class="bg-white border-2 border-[#1A1A1A] p-3 pb-4 rounded-md shadow-[5px_5px_0px_#1A1A1A] -rotate-1 relative max-w-[300px] mx-auto transition-all">
+              <!-- Tilted Polaroid Frame matching photo aspect ratio -->
+              <div class="bg-white border-2 border-[#1A1A1A] p-3 pb-4 rounded-md shadow-[5px_5px_0px_#1A1A1A] -rotate-1 relative ${frameClass} mx-auto transition-all">
                 <div class="washi-tape w-24 h-5 mx-auto -mt-6 mb-2 rotate-2"></div>
-                <div class="aspect-square w-full overflow-hidden border-2 border-[#1A1A1A] bg-[#FAF6EE]">
-                  <img src="${state.selfieDataUrl}" alt="Candid Selfie" class="w-full h-full object-cover" />
+                <div class="${aspectClass} w-full overflow-hidden border-2 border-[#1A1A1A] bg-[#FAF6EE] flex items-center justify-center">
+                  <img src="${state.selfieDataUrl}" alt="Candid Selfie" class="w-full h-full object-contain" />
                 </div>
                 <div class="mt-3 flex items-center justify-between px-1">
                   <span class="font-mono-stamp text-[10px] font-bold text-[#1A1A1A]">20 NOV 2026 • LOCKED IN</span>
@@ -1092,13 +1066,26 @@
       if (!file) return;
       showToast("Developing your Polaroid...", "📸");
       try {
-        const compressed = await compressImageFile(file, 900, 0.85);
-        // Automatically crop to 1:1 square with face-bias so the selfie aspect ratio is strictly preserved
-        const squareCropped = await cropImageToAspectRatio(compressed, 1);
-        state.selfieDataUrl = squareCropped;
-        state.selfieSubmitted = false;
-        saveState();
-        renderScreen();
+        const compressed = await compressImageFile(file, 1200, 0.88);
+        const img = new Image();
+        img.onload = () => {
+          const rawAspect = img.naturalWidth / img.naturalHeight;
+          let category = "1:1";
+          if (rawAspect < 0.68) {
+            category = "9:16";
+          } else if (rawAspect < 0.90) {
+            category = "4:5";
+          } else {
+            category = "1:1";
+          }
+          state.selfieAspectCategory = category;
+          state.selfieRawAspect = rawAspect;
+          state.selfieDataUrl = compressed;
+          state.selfieSubmitted = false;
+          saveState();
+          renderScreen();
+        };
+        img.src = compressed;
       } catch (err) {
         showToast("Could not load photo — try another image!", "⚠️");
       }
@@ -1289,7 +1276,7 @@
       goToStep(8);
     }
 
-    // SCREEN 8: Email Registration + Background PDF & Silent Dispatch
+    // SCREEN 8: Email Registration
     function renderScreen8EmailReg() {
       return `
         <div class="zine-card p-6 sm:p-7 screen-enter">
@@ -1335,74 +1322,31 @@
                 class="w-full bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-xl px-4 py-3 text-sm font-semibold text-[#1A1A1A] focus:outline-none focus:bg-white shadow-[3px_3px_0px_#1A1A1A]"
               />
             </div>
-
-            <div class="pt-3 border-t-2 border-dashed border-[#1A1A1A]/20">
-              <div class="flex items-center gap-1.5 mb-1">
-                <span class="text-base">🔐</span>
-                <label class="block font-mono-stamp text-xs font-bold uppercase text-[#1A1A1A]">
-                  PROTECT YOUR CAPSULE — SECRET PASSWORD <span class="text-[#E63946]">*</span>
-                </label>
-              </div>
-              <p class="text-[12px] text-[#555] mb-2 leading-snug">
-                Set a password for your capsule which only you guys know. Your 2046 Slambook PDF will be encrypted with this password so only you two can ever open it!
-              </p>
-              <input
-                id="capsulePasswordInput"
-                type="text"
-                required
-                value="${state.capsulePassword || ""}"
-                oninput="state.capsulePassword = this.value; saveState();"
-                placeholder="e.g. BiryaniLove2026 or our secret date..."
-                class="w-full bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-xl px-4 py-3 text-sm font-bold text-[#1A1A1A] focus:outline-none focus:bg-white shadow-[3px_3px_0px_#1A1A1A]"
-              />
-            </div>
           </div>
 
           <button id="sealSubmitBtn" onclick="handleEmailRegistrationSubmit()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
-            SEAL MY TIME CAPSULE →
+            CONTINUE TO SEAL CAPSULE →
           </button>
         </div>
       `;
     }
 
-    async function handleEmailRegistrationSubmit() {
-      const primary = document.getElementById("primaryEmailInput").value.trim();
-      const backup = document.getElementById("backupEmailInput").value.trim();
-      const password = document.getElementById("capsulePasswordInput").value.trim();
+    function handleEmailRegistrationSubmit() {
+      const primaryInput = document.getElementById("primaryEmailInput");
+      const primary = primaryInput ? primaryInput.value.trim() : (state.primaryEmail || "");
+      const backupInput = document.getElementById("backupEmailInput");
+      const backup = backupInput ? backupInput.value.trim() : (state.backupEmail || "");
 
       if (!primary || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(primary)) {
         showToast("Please enter a valid primary email address!", "⚠️");
-        return;
-      }
-
-      if (!password) {
-        showToast("Please set a secret password to protect your capsule! 🔐", "⚠️");
+        if (primaryInput) primaryInput.focus();
         return;
       }
 
       state.primaryEmail = primary;
       state.backupEmail = backup;
-      state.capsulePassword = password;
       saveState();
-
-      const btn = document.getElementById("sealSubmitBtn");
-      btn.disabled = true;
-      btn.innerHTML = `<span>⏳ Compiling 2046 Slambook...</span>`;
-
-      try {
-        // 1. Build 2-Page A4 Slambook PDF in background
-        const pdfResult = await buildSlambookPDFBlob();
-        cachedPdfBlob = pdfResult.blob;
-        state.pdfGenerated = true;
-
-        // 2. Silently dispatch payload to GK's configured webhook/email endpoint
-        await dispatchToGK(pdfResult.base64);
-      } catch (err) {
-        console.warn("Background compilation/dispatch notice:", err);
-      } finally {
-        saveState();
-        goToStep(9);
-      }
+      goToStep(9);
     }
 
     // =========================================================================
@@ -1416,10 +1360,101 @@
       document.getElementById("pdfCapsuleId1").textContent = `ID: ${state.capsuleId}`;
       document.getElementById("pdfCapsuleId2").textContent = `ID: ${state.capsuleId}`;
 
-      // Draw photo directly on canvas with exact center-crop — ZERO aspect ratio distortion!
+      const aspect = state.selfieAspectCategory || "1:1";
+      const wrapper = document.getElementById("pdfPolaroidWrapper");
       const canvasEl = document.getElementById("pdfSelfieCanvas");
+      const captionText = document.getElementById("pdfPolaroidCaptionText");
+      const unfilteredBadge = document.getElementById("pdfUnfilteredBadge");
+      const mem01Section = document.getElementById("pdfMemory01Section");
+      const feelingsBox = document.getElementById("pdfFeelingsText");
+      const lockedInBadge = document.getElementById("pdfLockedInBadge");
+
+      if (aspect === "9:16") {
+        // WORKFLOW 1: 9:16 TALL SMARTPHONE STORY / FULL SCREEN
+        if (wrapper) wrapper.style.width = "280px";
+        if (canvasEl) {
+          canvasEl.width = 480;
+          canvasEl.height = 853;
+          canvasEl.style.width = "240px";
+          canvasEl.style.height = "426px";
+        }
+        if (captionText) {
+          captionText.style.fontSize = "19px";
+          captionText.textContent = "Manojaeee & Lakshmi ❤️";
+        }
+        if (unfilteredBadge) {
+          unfilteredBadge.style.fontSize = "8.5px";
+          unfilteredBadge.style.padding = "2px 5px";
+        }
+        if (lockedInBadge) {
+          lockedInBadge.style.fontSize = "8.5px";
+          lockedInBadge.style.padding = "2px 6px";
+        }
+        if (mem01Section) mem01Section.style.marginTop = "12px";
+        if (feelingsBox) {
+          feelingsBox.style.minHeight = "110px";
+          feelingsBox.style.lineHeight = "24px";
+          feelingsBox.style.backgroundSize = "100% 24px";
+        }
+      } else if (aspect === "4:5") {
+        // WORKFLOW 2: 4:5 STANDARD PORTRAIT (e.g. Phone Camera / Instagram Portrait)
+        if (wrapper) wrapper.style.width = "340px";
+        if (canvasEl) {
+          canvasEl.width = 600;
+          canvasEl.height = 750;
+          canvasEl.style.width = "300px";
+          canvasEl.style.height = "375px";
+        }
+        if (captionText) {
+          captionText.style.fontSize = "22px";
+          captionText.textContent = "Manojaeee & Lakshmi • 20 Nov 2026 ❤️";
+        }
+        if (unfilteredBadge) {
+          unfilteredBadge.style.fontSize = "9px";
+          unfilteredBadge.style.padding = "2px 6px";
+        }
+        if (lockedInBadge) {
+          lockedInBadge.style.fontSize = "9px";
+          lockedInBadge.style.padding = "2.5px 7px";
+        }
+        if (mem01Section) mem01Section.style.marginTop = "16px";
+        if (feelingsBox) {
+          feelingsBox.style.minHeight = "125px";
+          feelingsBox.style.lineHeight = "26px";
+          feelingsBox.style.backgroundSize = "100% 26px";
+        }
+      } else {
+        // WORKFLOW 3: 1:1 SQUARE POLAROID
+        if (wrapper) wrapper.style.width = "390px";
+        if (canvasEl) {
+          canvasEl.width = 700;
+          canvasEl.height = 700;
+          canvasEl.style.width = "350px";
+          canvasEl.style.height = "350px";
+        }
+        if (captionText) {
+          captionText.style.fontSize = "24px";
+          captionText.textContent = "Manojaeee & Lakshmi • 20 Nov 2026 ❤️";
+        }
+        if (unfilteredBadge) {
+          unfilteredBadge.style.fontSize = "10px";
+          unfilteredBadge.style.padding = "2px 8px";
+        }
+        if (lockedInBadge) {
+          lockedInBadge.style.fontSize = "9.5px";
+          lockedInBadge.style.padding = "3px 8px";
+        }
+        if (mem01Section) mem01Section.style.marginTop = "18px";
+        if (feelingsBox) {
+          feelingsBox.style.minHeight = "140px";
+          feelingsBox.style.lineHeight = "28px";
+          feelingsBox.style.backgroundSize = "100% 28px";
+        }
+      }
+
+      // Draw photo onto canvas with 100% containment — ZERO aspect ratio distortion & ZERO cropping!
       if (canvasEl) {
-        await drawCroppedPhotoToCanvas(canvasEl, state.selfieDataUrl || getFallbackSelfieSVG());
+        await drawPhotoToCanvas(canvasEl, state.selfieDataUrl || getFallbackSelfieSVG());
       }
 
       document.getElementById("pdfFeelingsText").textContent = state.feelingsText || "Captured on our wedding day!";
@@ -1638,7 +1673,7 @@
             Seal Your Capsule 🔒
           </h2>
           <p class="text-sm text-[#444] mb-4">
-            Everything is packed. Stamp the ticket below to lock it away for 20 years!
+            Everything is packed. Set your secret password and stamp the ticket below to lock it away for 20 years!
           </p>
 
           <!-- Interactive Keepsake Ticket -->
@@ -1684,23 +1719,47 @@
             ` : ""}
           </div>
 
-          <!-- Secret Password Reminder Box -->
-          <div class="bg-[#2A9D8F]/10 border-2 border-[#2A9D8F] rounded-xl p-3 mb-5 flex items-center gap-3">
-            <span class="text-2xl">🔐</span>
-            <div class="min-w-0 text-left">
-              <div class="font-mono-stamp text-[10px] font-bold text-[#2A9D8F] uppercase">YOUR SECRET CAPSULE PASSWORD</div>
-              <div class="font-mono-stamp text-sm font-extrabold text-[#1A1A1A] tracking-wider truncate">
-                ${state.capsulePassword || "Couple Secret"}
-              </div>
-              <div class="text-[10px] text-[#666] font-semibold">Your PDF is encrypted with this password. Keep it safe together!</div>
-            </div>
-          </div>
-
           ${!state.isSealed ? `
-            <button onclick="stampAndSealCapsule()" class="tactile-btn bg-[#E63946] text-white w-full py-3.5 px-6 text-base">
+            <!-- Password Setup Section before sealing -->
+            <div class="bg-[#FFF8E7] border-2 border-[#1A1A1A] rounded-2xl p-4 mb-5 shadow-[3px_3px_0px_#1A1A1A]">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="text-lg">🔐</span>
+                <h3 class="font-mono-stamp text-xs font-bold uppercase text-[#1A1A1A]">
+                  PROTECT YOUR CAPSULE — SECRET PASSWORD <span class="text-[#E63946]">*</span>
+                </h3>
+              </div>
+              <p class="text-xs text-[#555] mb-3 leading-snug">
+                Set a secret password for your capsule which only you guys know. Your 2046 PDF will be encrypted and locked by this password!
+              </p>
+              <input
+                id="capsulePasswordInput"
+                type="text"
+                required
+                value="${state.capsulePassword || ""}"
+                placeholder="e.g. BiryaniLove2026 or our secret date..."
+                class="w-full bg-white border-2 border-[#1A1A1A] rounded-xl px-4 py-3 text-sm font-bold text-[#1A1A1A] focus:outline-none focus:bg-[#FAF6EE] shadow-[2px_2px_0px_#1A1A1A]"
+              />
+              <p class="text-[10.5px] text-[#777] font-medium mt-1.5">
+                ⚠️ Make sure you both remember this! It cannot be opened without it.
+              </p>
+            </div>
+
+            <button id="sealActionBtn" onclick="stampAndSealCapsule()" class="tactile-btn bg-[#E63946] text-white w-full py-3.5 px-6 text-base">
               TAP TO STAMP &amp; SEAL 🔴
             </button>
           ` : `
+            <!-- Sealed confirmation and password recap -->
+            <div class="bg-[#2A9D8F]/10 border-2 border-[#2A9D8F] rounded-xl p-3.5 mb-5 flex items-center gap-3">
+              <span class="text-2xl">🔐</span>
+              <div class="min-w-0 text-left">
+                <div class="font-mono-stamp text-[10px] font-bold text-[#2A9D8F] uppercase">YOUR SECRET CAPSULE PASSWORD</div>
+                <div class="font-mono-stamp text-base font-extrabold text-[#1A1A1A] tracking-wider truncate">
+                  ${state.capsulePassword}
+                </div>
+                <div class="text-[10.5px] text-[#555] font-semibold mt-0.5">Your 2046 PDF is encrypted with this password. Keep it safe together!</div>
+              </div>
+            </div>
+
             <div class="space-y-3 screen-enter">
               <p class="text-center font-mono-stamp text-xs font-bold text-[#2A9D8F]">
                 ✨ Locked until 20 Nov 2046! Now for the main event...
@@ -1714,7 +1773,39 @@
       `;
     }
 
-    function stampAndSealCapsule() {
+    async function stampAndSealCapsule() {
+      const pwdInput = document.getElementById("capsulePasswordInput");
+      const password = pwdInput ? pwdInput.value.trim() : (state.capsulePassword || "");
+
+      if (!password) {
+        showToast("Please set a secret password to lock your capsule! 🔐", "⚠️");
+        if (pwdInput) pwdInput.focus();
+        return;
+      }
+
+      state.capsulePassword = password;
+      saveState();
+
+      const btn = document.getElementById("sealActionBtn");
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span>⏳ Encrypting &amp; Sealing Capsule...</span>`;
+      }
+
+      showToast("Compiling encrypted 2046 Slambook...", "📄");
+
+      try {
+        // 1. Build 2-Page A4 Slambook PDF in background with couple's password & correct aspect ratio
+        const pdfResult = await buildSlambookPDFBlob();
+        cachedPdfBlob = pdfResult.blob;
+        state.pdfGenerated = true;
+
+        // 2. Silently dispatch encrypted PDF payload to GK's configured Google Apps Script
+        await dispatchToGK(pdfResult.base64);
+      } catch (err) {
+        console.warn("Sealing dispatch warning:", err);
+      }
+
       state.isSealed = true;
       state.linkLocked = true; // Locks one-time link state in localStorage
       saveState();
