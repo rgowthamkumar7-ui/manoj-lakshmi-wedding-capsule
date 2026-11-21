@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>A Special Message For The Newlyweds ❤️</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Bricolage Grotesque, Plus Jakarta Sans, Space Mono & Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Client-Side PDF Generation Libraries (html2canvas + jsPDF) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    :root {
+      --paper: #FAF6EE;
+      --card-bg: #FFFDF9;
+      --ink: #1A1A1A;
+      --marigold: #FFB800;
+      --vermilion: #E63946;
+      --sage: #2A9D8F;
+      --midnight: #131528;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--paper);
+      color: var(--ink);
+      background-image: radial-gradient(#1A1A1A22 1.25px, transparent 1.25px);
+      background-size: 20px 20px;
+      transition: background-color 0.65s cubic-bezier(0.22, 1, 0.36, 1), color 0.65s ease;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Dramatic Midnight Shift for Screen 6 (Plot Twist) */
+    body.midnight-mode {
+      background-color: var(--midnight);
+      color: var(--paper);
+      background-image: radial-gradient(#FFB8002B 1.25px, transparent 1.25px);
+    }
+
+    .font-display {
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
+
+    .font-mono-stamp {
+      font-family: 'Space Mono', monospace;
+    }
+
+    .font-handwriting {
+      font-family: 'Caveat', cursive;
+    }
+
+    /* Tactile Neo-Scrapbook Card */
+    .zine-card {
+      background: var(--card-bg);
+      border: 2.5px solid var(--ink);
+      box-shadow: 6px 6px 0px var(--ink);
+      border-radius: 20px;
+      position: relative;
+      transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    body.midnight-mode .zine-card {
+      background: #1B1E38;
+      border-color: var(--marigold);
+      box-shadow: 6px 6px 0px var(--marigold);
+      color: var(--paper);
+    }
+
+    /* Tactile Pressable Button */
+    .tactile-btn {
+      border: 2.5px solid var(--ink);
+      box-shadow: 4px 4px 0px var(--ink);
+      border-radius: 14px;
+      font-weight: 800;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease, opacity 0.2s ease;
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .tactile-btn:hover:not(:disabled) {
+      transform: translate(-1px, -1px);
+      box-shadow: 5px 5px 0px var(--ink);
+    }
+
+    .tactile-btn:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0px var(--ink);
+    }
+
+    .tactile-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .tactile-btn-gold-dark {
+      background-color: var(--marigold);
+      color: var(--ink);
+      border-color: var(--ink);
+      box-shadow: 4px 4px 0px #000000;
+    }
+
+    /* Translucent Washi Masking Tape */
+    .washi-tape {
+      background: rgba(255, 184, 0, 0.6);
+      border-left: 1px dashed rgba(26, 26, 26, 0.28);
+      border-right: 1px dashed rgba(26, 26, 26, 0.28);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .washi-tape-sage {
+      background: rgba(42, 157, 143, 0.42);
+      border-left: 1px dashed rgba(26, 26, 26, 0.28);
+      border-right: 1px dashed rgba(26, 26, 26, 0.28);
+    }
+
+    /* Lined Notebook Paper */
+    .lined-paper {
+      background-color: #FFFDF9;
+      background-image: linear-gradient(to bottom, transparent 31px, #E2DDD2 32px);
+      background-size: 100% 32px;
+      line-height: 32px;
+      padding-top: 4px;
+    }
+
+    .lined-paper-pdf {
+      background-color: #FFFDF9;
+      background-image: linear-gradient(to bottom, transparent 27px, #E2DDD2 28px);
+      background-size: 100% 28px;
+      line-height: 28px;
+    }
+
+    /* Vintage Airmail Striped Border */
+    .airmail-border {
+      padding: 4px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #E63946,
+        #E63946 10px,
+        #FFFDF9 10px,
+        #FFFDF9 20px,
+        #2A9D8F 20px,
+        #2A9D8F 30px,
+        #FFFDF9 30px,
+        #FFFDF9 40px
+      );
+      border-radius: 16px;
+      border: 2px solid var(--ink);
+    }
+
+    /* Rubber Stamp Slam Animation */
+    @keyframes stampSlam {
+      0% {
+        opacity: 0;
+        transform: scale(2.8) rotate(-20deg);
+      }
+      70% {
+        opacity: 1;
+        transform: scale(0.92) rotate(-7deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(-8deg);
+      }
+    }
+
+    .stamp-slammed {
+      animation: stampSlam 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Gift Box Wiggle & Lid Open */
+    @keyframes giftWiggle {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      20% { transform: rotate(-4deg) scale(1.03); }
+      40% { transform: rotate(4deg) scale(1.03); }
+      60% { transform: rotate(-2.5deg) scale(1.015); }
+      80% { transform: rotate(2.5deg) scale(1.015); }
+    }
+
+    .gift-wiggle {
+      animation: giftWiggle 1.8s ease-in-out infinite;
+    }
+
+    .gift-lid {
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+      transform-origin: 22px 44px;
+    }
+
+    .gift-opened .gift-lid {
+      transform: translate(-18px, -36px) rotate(-32deg);
+      opacity: 0.2;
+    }
+
+    /* Smooth Screen Entrance */
+    @keyframes popIn {
+      0% { opacity: 0; transform: translateY(14px) scale(0.985); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .screen-enter {
+      animation: popIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Perforated Boarding Pass Cutouts */
+    .ticket-notch-left, .ticket-notch-right {
+      width: 22px;
+      height: 22px;
+      background-color: var(--paper);
+      border: 2.5px solid var(--ink);
+      border-radius: 9999px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+    .ticket-notch-left { left: -13px; }
+    .ticket-notch-right { right: -13px; }
+
+    /* Offscreen A4 PDF Render Staging Area */
+    #pdfStagingRoot {
+      position: fixed;
+      left: -9999px;
+      top: 0;
+      width: 595px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .a4-pdf-sheet {
+      width: 595px;
+      height: 842px;
+      background-color: #FAF6EE;
+      background-image: radial-gradient(#1A1A1A1F 1px, transparent 1px);
+      background-size: 16px 16px;
+      border: 2.5px solid #1A1A1A;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #1A1A1A;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-between">
+
+  <!-- CONFETTI CELEBRATION CANVAS -->
+  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+  <!-- TOAST NOTIFICATION BANNER -->
+  <div id="toastBox" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-300 translate-y-3">
+    <div class="bg-[#1A1A1A] text-[#FAF6EE] border-2 border-[#FFB800] px-4 py-2.5 rounded-xl shadow-lg font-medium text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap">
+      <span id="toastIcon">✨</span>
+      <span id="toastMsg">Notification</span>
+    </div>
+  </div>
+
+  <!-- MAIN MOBILE-FIRST VIEWPORT -->
+  <main class="w-full max-w-[440px] mx-auto px-4 pt-6 sm:pt-10 pb-8 flex-1 flex flex-col justify-center">
+    <div id="appViewport" class="w-full">
+      <!-- Active Screen Renders Here -->
+    </div>
+  </main>
+
+  <!-- DISCREET FOOTER (Triple-tap to open GK's Host/Admin Controls) -->
+  <footer class="w-full text-center pb-5 px-4">
+    <p id="footerTrigger" class="font-mono-stamp text-[10px] tracking-wider uppercase opacity-45 select-none cursor-default">
+      HANDCRAFTED WITH LOVE • 2026 → 2046
+    </p>
+  </footer>
+
+  <!-- =====================================================================
+       SCREEN 3: ONE-TIME LINK CONFIRMATION MODAL
+  ====================================================================== -->
+  <div id="confirmModal" class="fixed inset-0 z-40 bg-black/65 backdrop-blur-[2px] hidden items-center justify-center p-4">
+    <div class="zine-card w-full max-w-[390px] p-6 bg-[#FFFDF9] text-[#1A1A1A] screen-enter">
+      <div class="washi-tape w-24 h-6 mx-auto -mt-9 mb-4 -rotate-2"></div>
+
+      <div class="inline-block bg-[#E63946] text-white font-mono-stamp text-[11px] font-bold px-2.5 py-1 rounded-md border border-[#1A1A1A] mb-3">
+        ⚠️ ONE-TIME LINK CHECK
+      </div>
+
+      <h3 class="font-display text-2xl sm:text-3xl font-extrabold mb-2 leading-tight">
+        Oii! One last thing... 🙌
+      </h3>
+      <p class="text-[15px] text-[#222] leading-relaxed mb-6 font-medium">
+        This link will work only once. Are you pakka pakka to do it now?
+      </p>
+
+      <div class="flex flex-col gap-3">
+        <button onclick="confirmAndStartSession()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] py-3.5 px-5 text-base w-full">
+          YES! Build up podhum 🤩
+        </button>
+        <button onclick="closeConfirmModal()" class="tactile-btn bg-[#FAF6EE] text-[#1A1A1A] py-3 px-5 text-sm w-full font-semibold">
+          Seri aprma panren
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       DISCREET HOST / ADMIN PANEL FOR GK (Triple-tap footer or ?admin=1)
+  ====================================================================== -->
+  <div id="adminModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="zine-card w-full max-w-[440px] p-5 bg-[#FFFDF9] text-[#1A1A1A] my-auto screen-enter">
+      <div class="flex items-center justify-between border-b-2 border-[#1A1A1A] pb-3 mb-4">
+        <div>
+          <span class="font-mono-stamp text-[10px] font-bold bg-[#1A1A1A] text-[#FFB800] px-2 py-0.5 rounded">GK HOST CONSOLE</span>
+          <h3 class="font-display text-xl font-extrabold mt-1">Capsule &amp; Link Controls</h3>
+        </div>
+        <button onclick="closeAdminModal()" class="tactile-btn bg-[#FAF6EE] px-3 py-1 text-xs">✕ Close</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div class="bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-xl p-3 font-mono-stamp space-y-1">
+          <div><strong>CAPSULE ID:</strong> <span id="admCapsuleId">-</span></div>
+          <div><strong>LINK STATUS:</strong> <span id="admLockStatus">-</span></div>
+          <div><strong>EMAILS:</strong> <span id="admEmails">-</span></div>
+          <div><strong>DISPATCH STATUS:</strong> <span id="admDispatchStatus">-</span></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <button onclick="downloadSlambookPDF(true)" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] py-2.5 px-3 text-xs">
+            📄 Download 2-Page PDF
+          </button>
+          <button onclick="downloadRawSelfie()" class="tactile-btn bg-[#2A9D8F] text-white py-2.5 px-3 text-xs">
+            🖼️ Download Raw Selfie
+          </button>
+        </div>
+
+        <div class="pt-1">
+          <div class="font-mono-stamp text-[10px] font-bold text-[#555] mb-1.5">QUICK SCREEN JUMP (TESTING):</div>
+          <div id="admJumpGrid" class="grid grid-cols-4 gap-1.5"></div>
+        </div>
+
+        <div class="pt-2 border-t border-dashed border-[#1A1A1A]/30">
+          <button onclick="adminResetAll()" class="tactile-btn bg-[#E63946] text-white w-full py-2.5 px-4 text-xs">
+            ↺ Unlock One-Time Link &amp; Reset Session
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       OFFSCREEN 2-PAGE A4 SLAMBOOK PDF TEMPLATE (Rendered by html2canvas + jsPDF)
+  ====================================================================== -->
+  <div id="pdfStagingRoot" aria-hidden="true">
+    <!-- PDF PAGE 1: THE WEDDING DAY SNAPSHOT -->
+    <div id="pdfRenderPage1" class="a4-pdf-sheet">
+      <div>
+        <div class="flex items-center justify-between border-b-2 border-[#1A1A1A] pb-2.5 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="bg-[#1A1A1A] text-[#FFB800] font-mono-stamp text-[10px] font-bold px-2.5 py-1 rounded">
+              TIME CAPSULE ARCHIVE
+            </span>
+            <span class="font-mono-stamp text-[10px] font-bold text-[#1A1A1A]">
+              SEALED: 20 NOV 2026 • OPENED: 20 NOV 2046
+            </span>
+          </div>
+          <span id="pdfCapsuleId1" class="font-mono-stamp text-[10px] font-bold border border-[#1A1A1A] bg-[#FFFDF9] px-2 py-0.5 rounded">
+            ID: ML-2026-2046-0001
+          </span>
+        </div>
+
+        <div class="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <h1 class="font-display text-4xl font-extrabold text-[#1A1A1A] leading-none tracking-tight mb-1.5">
+              20 Years Ago Today...
+            </h1>
+            <p class="text-xs font-semibold text-[#444]">
+              A secret wedding-day snapshot preserved for <span class="text-[#1A1A1A] underline decoration-[#FFB800] decoration-2 font-bold">Manoj &amp; Lakshmi</span>’s 20th anniversary.
+            </p>
+          </div>
+          <div class="bg-[#FFB800] border-2 border-[#1A1A1A] px-2.5 py-1 rounded-lg rotate-3 shrink-0 text-center">
+            <div class="font-mono-stamp text-[9px] font-bold leading-tight">EDITION</div>
+            <div class="font-display text-sm font-extrabold leading-tight">2026→2046</div>
+          </div>
+        </div>
+
+        <!-- Polaroid Photo Card -->
+        <div class="relative mx-auto w-[340px] my-3">
+          <div class="washi-tape w-20 h-5 absolute -top-2.5 -left-4 -rotate-12 z-20"></div>
+          <div class="washi-tape w-20 h-5 absolute -top-2.5 -right-4 rotate-12 z-20"></div>
+
+          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] p-3 pb-3.5 rounded-md -rotate-1">
+            <div class="w-full h-[225px] border-2 border-[#1A1A1A] bg-[#FAF6EE] overflow-hidden relative">
+              <img id="pdfSelfieImg" src="" alt="Couple Selfie" class="w-full h-full object-cover" />
+              <div class="absolute bottom-2 right-2 bg-[#1A1A1A]/85 text-[#FFB800] font-mono-stamp text-[9px] font-bold px-2 py-0.5 rounded">
+                20.11.2026 • LOCKED IN
+              </div>
+            </div>
+            <div class="mt-2.5 px-1 flex items-center justify-between gap-2">
+              <p class="font-handwriting text-xl font-bold text-[#1A1A1A] leading-tight">
+                Manojaeee &amp; Lakshmi • 20 Nov 2026 ❤️
+              </p>
+              <span class="font-mono-stamp text-[9px] text-[#E63946] font-bold shrink-0 border border-[#E63946] px-1.5 py-0.5 rounded">
+                UNFILTERED
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Memory 01: Feelings Check -->
+        <div class="mt-5">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-mono-stamp text-[11px] font-bold bg-[#2A9D8F] text-white px-2.5 py-0.5 rounded border border-[#1A1A1A]">
+              MEMORY 01 • HOW YOU FELT AT THIS EXACT MOMENT
+            </span>
+            <span class="font-mono-stamp text-[10px] text-[#555]">VERBATIM ENTRY</span>
+          </div>
+          <div class="airmail-border">
+            <div class="bg-[#FFFDF9] rounded-[11px] px-4 py-2.5">
+              <p id="pdfFeelingsText" class="lined-paper-pdf text-[13px] font-medium text-[#1A1A1A] min-h-[140px] whitespace-pre-wrap"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="border-t-2 border-[#1A1A1A] pt-2 flex items-center justify-between font-mono-stamp text-[10px] font-bold text-[#1A1A1A]">
+        <span>PAGE 01 OF 02 • DO NOT OPEN BEFORE 2046</span>
+        <span class="text-[#E63946]">★ ZERO AI SLOP • 100% REAL MEMORIES</span>
+      </footer>
+    </div>
+
+    <!-- PDF PAGE 2: MESSAGES ACROSS TWO DECADES -->
+    <div id="pdfRenderPage2" class="a4-pdf-sheet">
+      <div>
+        <div class="flex items-center justify-between border-b-2 border-[#1A1A1A] pb-2.5 mb-4">
+          <div class="flex items-center gap-2">
+            <span id="pdfCapsuleId2" class="bg-[#1A1A1A] text-[#FFB800] font-mono-stamp text-[10px] font-bold px-2.5 py-1 rounded">
+              ID: ML-2026-2046-0001
+            </span>
+            <span class="font-mono-stamp text-[10px] font-bold text-[#2A9D8F]">
+              ● SEALED FOR 2046
+            </span>
+          </div>
+          <span id="pdfEmailsText" class="font-mono-stamp text-[10px] font-bold bg-[#FFFDF9] border border-[#1A1A1A] px-2 py-0.5 rounded truncate max-w-[235px]">
+            manojaeee.and.lakshmi@gmail.com
+          </span>
+        </div>
+
+        <div class="mb-4">
+          <h2 class="font-display text-3xl font-extrabold text-[#1A1A1A] leading-tight">
+            Messages Across Two Decades
+          </h2>
+          <p class="text-xs text-[#555] font-medium">
+            Notes sealed on your wedding night, unlocked twenty years later.
+          </p>
+        </div>
+
+        <!-- Memory 02: Task 3 Final Capsule Addition -->
+        <div class="relative mt-4 mb-5">
+          <svg class="w-8 h-10 absolute -top-4 left-5 z-20 text-[#1A1A1A]" viewBox="0 0 36 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+            <path d="M12 14 V34 A6 6 0 0 0 24 34 V10 A9 9 0 0 0 6 10 V32"/>
+          </svg>
+          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] rounded-2xl p-4 pt-5">
+            <div class="flex items-center justify-between border-b border-dashed border-[#1A1A1A]/30 pb-1.5 mb-2.5">
+              <span class="font-mono-stamp text-[11px] font-bold text-[#E63946] uppercase">
+                📌 MEMORY 02 • WHAT YOU WANTED FUTURE-YOU TO REMEMBER
+              </span>
+              <span class="font-mono-stamp text-[9px] text-[#666]">WRITTEN IN 2026</span>
+            </div>
+            <p id="pdfFutureNoteText" class="text-[13px] leading-relaxed font-medium text-[#1A1A1A] bg-[#FAF6EE] border border-[#1A1A1A]/15 rounded-xl p-3.5 whitespace-pre-wrap"></p>
+          </div>
+        </div>
+
+        <!-- Time-Warp Note from GK -->
+        <div class="relative mb-5">
+          <div class="washi-tape-sage w-24 h-5 mx-auto -mb-2.5 relative z-10 -rotate-1"></div>
+          <div class="bg-[#FFF8E7] border-2 border-[#1A1A1A] rounded-2xl p-4">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-mono-stamp text-[11px] font-bold bg-[#2A9D8F] text-white px-2.5 py-0.5 rounded border border-[#1A1A1A]">
+                💌 A TIME-WARP NOTE FROM GK
+              </span>
+              <span class="font-handwriting text-lg font-bold text-[#2A9D8F]">20-Year Guarantee!</span>
+            </div>
+            <div class="text-[12.5px] leading-relaxed text-[#1A1A1A] font-medium mb-2 space-y-1.5">
+              <p>
+                Happy 20th Anniversary, Manojaeee &amp; Lakshmi! If you're reading this in 2046, I hope flying cars exist, our backs don't hurt too much, and we are still alive and well to eat biryani 4 days a week. Hope Lakshmi didn't block me after all and I hope you guys made use of this voucher well!
+              </p>
+              <p class="font-semibold">
+                Give me a call when you see/ If you see this mail machaa!
+              </p>
+            </div>
+            <div class="flex items-center justify-end">
+              <span class="font-handwriting text-2xl font-bold text-[#1A1A1A] -rotate-2">
+                - GK 🥂
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gift Receipt + Authenticated Stamp -->
+        <div class="relative flex items-center justify-between gap-3 mt-3">
+          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] rounded-xl p-3.5 flex-1 relative">
+            <div class="flex items-center justify-between border-b border-dashed border-[#1A1A1A]/30 pb-1.5 mb-2">
+              <span class="font-mono-stamp text-[10px] font-bold bg-[#FF5A1F] text-white px-2 py-0.5 rounded border border-[#1A1A1A]">
+                🎟️ THE WEDDING GIFT RECEIPT
+              </span>
+              <span class="font-mono-stamp text-[9px] font-bold text-[#555]">CLEARTRIP VOUCHER</span>
+            </div>
+            <p class="font-display text-sm font-extrabold text-[#1A1A1A] mb-0.5">
+              PS: To many more happy travels ✈️
+            </p>
+            <p class="text-[11.5px] font-semibold text-[#333] leading-snug">
+              To a lifetime of love, laughter &amp; countless adventures together! ❤️
+            </p>
+          </div>
+
+          <div class="shrink-0 -rotate-12">
+            <div class="w-[122px] h-[122px] rounded-full border-[3.5px] border-[#E63946] bg-[#FFFDF9]/95 p-1.5 flex items-center justify-center">
+              <div class="w-full h-full rounded-full border-[1.5px] border-dashed border-[#E63946] flex flex-col items-center justify-center text-center px-1 text-[#E63946]">
+                <span class="font-mono-stamp text-[8px] font-bold tracking-widest uppercase">AUTHENTICATED</span>
+                <span class="font-display text-sm font-extrabold leading-tight my-0.5">2026 → 2046</span>
+                <span class="font-mono-stamp text-[8px] font-bold tracking-wider uppercase leading-tight">CAPSULE<br/>DELIVERED ✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="border-t-2 border-[#1A1A1A] pt-2 flex items-center justify-between font-mono-stamp text-[10px] font-bold text-[#1A1A1A]">
+        <span>PAGE 02 OF 02 • ARCHIVED WITH LOVE</span>
+        <span>PRESERVED FOR 20 NOVEMBER 2046</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. GK'S CONFIGURATION (Edit voucher details & email webhook key here!)
+    // =========================================================================
+    const CONFIG = {
+      // Cleartrip Gift Voucher Details revealed on Screen 11
+      voucherCode: "CT-WED-2026-ML99",
+      voucherPin: "204611",
+      voucherAmount: "₹5,000",
+
+      // Silent Email Dispatch to GK when couple submits Screen 8:
+      // Option A (Recommended - Free & Zero Backend): Get an access key at https://web3forms.com
+      // and paste it below. Web3Forms will email all answers + capsule details straight to GK!
+      web3formsAccessKey: "",
+
+      // Option B: Or paste a Formspree endpoint URL (e.g., "https://formspree.io/f/xxxxxxx")
+      formspreeEndpoint: "",
+
+      // Delivery date displayed on Sealing Ticket & PDF
+      sealedDateLabel: "20 NOV 2026",
+      deliveryDateLabel: "20 NOV 2046",
+      storageKey: "ml_time_capsule_2026_v1"
+    };
+
+    // =========================================================================
+    // 2. PERSISTENT STATE MANAGEMENT (Survives accidental refreshes!)
+    // =========================================================================
+    function generateCapsuleId() {
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      return `ML-2026-2046-${rand}`;
+    }
+
+    const defaultState = {
+      step: 1,
+      sessionStarted: false,
+      linkLocked: false,
+      capsuleId: generateCapsuleId(),
+      selfieDataUrl: null,
+      selfieSubmitted: false,
+      feelingsText: "",
+      feelingsSubmitted: false,
+      capsuleExtraText: "",
+      primaryEmail: "",
+      backupEmail: "",
+      isSealed: false,
+      giftOpened: false,
+      dispatchStatus: "Not submitted yet",
+      pdfGenerated: false
+    };
+
+    let state = loadState();
+    let cachedPdfBlob = null;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(CONFIG.storageKey);
+        if (!raw) return { ...defaultState };
+        const parsed = JSON.parse(raw);
+        return { ...defaultState, ...parsed };
+      } catch (e) {
+        return { ...defaultState };
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(CONFIG.storageKey, JSON.stringify(state));
+      } catch (e) {
+        // Fallback if localStorage quota is tight due to image size
+        console.warn("Storage warning:", e);
+      }
+    }
+
+    // =========================================================================
+    // 3. NAVIGATION & THEME CONTROLLER
+    // =========================================================================
+    function goToStep(stepNumber) {
+      state.step = stepNumber;
+      saveState();
+
+      // Dramatic Midnight Indigo shift strictly on Screen 6 (Plot Twist)
+      if (stepNumber === 6) {
+        document.body.classList.add("midnight-mode");
+      } else {
+        document.body.classList.remove("midnight-mode");
+      }
+
+      renderScreen();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showToast(msg, icon = "✨") {
+      const box = document.getElementById("toastBox");
+      document.getElementById("toastMsg").textContent = msg;
+      document.getElementById("toastIcon").textContent = icon;
+      box.classList.remove("opacity-0", "translate-y-3");
+      box.classList.add("opacity-100", "translate-y-0");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        box.classList.add("opacity-0", "translate-y-3");
+        box.classList.remove("opacity-100", "translate-y-0");
+      }, 3200);
+    }
+
+    // =========================================================================
+    // 4. IMAGE COMPRESSION (Ensures crisp Polaroid & fast PDF/email payload)
+    // =========================================================================
+    function compressImageFile(file, maxDim = 900, quality = 0.84) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = reject;
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onerror = reject;
+          img.onload = () => {
+            let { width, height } = img;
+            if (width > maxDim || height > maxDim) {
+              if (width > height) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              } else {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL("image/jpeg", quality));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Fallback SVG illustration if PDF is rendered without an uploaded selfie
+    function getFallbackSelfieSVG() {
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320">
+          <rect width="480" height="320" fill="#FFE8D6"/>
+          <circle cx="240" cy="160" r="105" fill="#FFFDF9" stroke="#1A1A1A" stroke-width="3"/>
+          <text x="240" y="152" font-family="sans-serif" font-weight="bold" font-size="22" text-anchor="middle" fill="#1A1A1A">MANOJ &amp; LAKSHMI</text>
+          <text x="240" y="182" font-family="monospace" font-weight="bold" font-size="14" text-anchor="middle" fill="#E63946">20 NOV 2026 ❤️ 2046</text>
+        </svg>
+      `;
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    }
+
+    // =========================================================================
+    // 5. ALL 11 SCREENS RENDERER
+    // =========================================================================
+    function renderScreen() {
+      const viewport = document.getElementById("appViewport");
+
+      // Enforce One-Time Link Lock if they already sealed & finished
+      if (state.linkLocked && state.step < 9) {
+        viewport.innerHTML = renderLockedScreen();
+        return;
+      }
+
+      switch (state.step) {
+        case 1: viewport.innerHTML = renderScreen1Welcome(); break;
+        case 2: viewport.innerHTML = renderScreen2Rules(); break;
+        case 4: viewport.innerHTML = renderScreen4Task1Selfie(); break;
+        case 5: viewport.innerHTML = renderScreen5Task2Feelings(); break;
+        case 6: viewport.innerHTML = renderScreen6PlotTwist(); break;
+        case 7: viewport.innerHTML = renderScreen7Task3Final(); break;
+        case 8: viewport.innerHTML = renderScreen8EmailReg(); break;
+        case 9: viewport.innerHTML = renderScreen9Sealing(); break;
+        case 10: viewport.innerHTML = renderScreen10GiftTeaser(); break;
+        case 11: viewport.innerHTML = renderScreen11VoucherFinale(); break;
+        default: viewport.innerHTML = renderScreen1Welcome();
+      }
+    }
+
+    // ONE-TIME LINK LOCKED SCREEN (If revisited after completion)
+    function renderLockedScreen() {
+      return `
+        <div class="zine-card p-6 sm:p-7 text-center screen-enter">
+          <div class="washi-tape w-28 h-6 mx-auto -mt-9 mb-4 -rotate-2"></div>
+          <div class="inline-block bg-[#E63946] text-white font-mono-stamp text-xs font-bold px-3 py-1 rounded-full border-2 border-[#1A1A1A] mb-3">
+            🔒 ONE-TIME LINK USED
+          </div>
+          <h1 class="font-display text-3xl font-extrabold mb-3 leading-tight">
+            Ayyo! This capsule is already sealed! 😂
+          </h1>
+          <p class="text-[15px] text-[#333] leading-relaxed mb-5">
+            Remember Rule #3? This link works only once! Your memories are safely locked away until <strong>20 November 2046</strong>.
+          </p>
+          <div class="bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-xl p-3 font-mono-stamp text-xs mb-6">
+            CAPSULE ID: <strong>${state.capsuleId}</strong>
+          </div>
+          <button onclick="goToStep(11)" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+            VIEW YOUR GIFT VOUCHER 🎁
+          </button>
+        </div>
+      `;
+    }
+
+    // SCREEN 1: Welcome Screen (QR Landing)
+    function renderScreen1Welcome() {
+      return `
+        <div class="zine-card p-6 sm:p-7 screen-enter">
+          <div class="washi-tape w-28 h-6 mx-auto -mt-9 mb-4 -rotate-1"></div>
+
+          <div class="text-center mb-3">
+            <span class="inline-block font-mono-stamp text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-[#FAF6EE] border-2 border-[#1A1A1A] px-3 py-1 rounded-full">
+              A SPECIAL MESSAGE FOR THE NEWLYWEDS
+            </span>
+          </div>
+
+          <h1 class="font-display text-3xl sm:text-4xl font-extrabold text-center leading-tight mb-5 text-[#1A1A1A]">
+            Happy Married Life Machaaaaa! ❤️
+          </h1>
+
+          <!-- Tactile Scrapbook Vector Illustration -->
+          <div class="bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-2xl p-3.5 mb-5">
+            <svg viewBox="0 0 340 155" class="w-full h-auto">
+              <!-- Polaroid Sticker -->
+              <g transform="translate(24, 18) rotate(-8)">
+                <rect x="3" y="3" width="86" height="102" rx="6" fill="#1A1A1A"/>
+                <rect width="86" height="102" rx="6" fill="#FFFDF9" stroke="#1A1A1A" stroke-width="2.5"/>
+                <rect x="8" y="8" width="70" height="68" rx="3" fill="#2A9D8F" stroke="#1A1A1A" stroke-width="2"/>
+                <circle cx="30" cy="34" r="9" fill="#FFB800" stroke="#1A1A1A" stroke-width="2"/>
+                <path d="M14 74 L33 50 L48 66 L60 54 L74 74 Z" fill="#FAF6EE" stroke="#1A1A1A" stroke-width="2"/>
+                <text x="43" y="93" font-family="monospace" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#1A1A1A">20 NOV 2026</text>
+              </g>
+
+              <!-- Interlocking Rings -->
+              <g transform="translate(130, 30)">
+                <circle cx="30" cy="46" r="25" fill="none" stroke="#1A1A1A" stroke-width="8"/>
+                <circle cx="30" cy="46" r="25" fill="none" stroke="#FFB800" stroke-width="4.5"/>
+                <circle cx="58" cy="46" r="25" fill="none" stroke="#1A1A1A" stroke-width="8"/>
+                <circle cx="58" cy="46" r="25" fill="none" stroke="#FFB800" stroke-width="4.5"/>
+                <polygon points="58,9 68,19 58,27 48,19" fill="#E63946" stroke="#1A1A1A" stroke-width="2"/>
+              </g>
+
+              <!-- Mystery Gift Ticket -->
+              <g transform="translate(222, 26) rotate(9)">
+                <rect x="3" y="3" width="90" height="56" rx="8" fill="#1A1A1A"/>
+                <rect width="90" height="56" rx="8" fill="#E63946" stroke="#1A1A1A" stroke-width="2.5"/>
+                <line x1="62" y1="0" x2="62" y2="56" stroke="#FFFDF9" stroke-width="2" stroke-dasharray="4 3"/>
+                <text x="32" y="24" font-family="monospace" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#FFFDF9">MYSTERY</text>
+                <text x="32" y="39" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle" fill="#FFB800">GIFT 🎁</text>
+                <text x="76" y="33" font-family="monospace" font-size="8.5" font-weight="bold" text-anchor="middle" fill="#FFFDF9" transform="rotate(-90 76 33)">ADMIT 2</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="space-y-2.5 text-[15px] leading-relaxed text-[#222] mb-5">
+            <p class="font-bold text-[#1A1A1A]">
+              Okay, before you close this as just another AI slop...
+            </p>
+            <p>
+              There is a proper gift at the end. But as usual, I just tried to do something different for you guys.
+            </p>
+          </div>
+
+          <!-- Highlighted Sticky Note for Lakshmi -->
+          <div class="bg-[#FFF3B0] border-2 border-[#1A1A1A] rounded-xl p-3.5 mb-6 -rotate-1 shadow-[3px_3px_0px_#1A1A1A]">
+            <div class="font-mono-stamp text-xs font-bold text-[#E63946] uppercase mb-1">
+              Cringe alert! 🚨
+            </div>
+            <p class="text-sm font-medium text-[#1A1A1A] leading-snug">
+              Lakshmi, we haven't interacted. Hopefully you don't categorise me as <span class="underline decoration-[#E63946] decoration-2 font-bold">cringeaandi</span> by the end 😂
+            </p>
+          </div>
+
+          <button onclick="goToStep(2)" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+            NEXT →
+          </button>
+        </div>
+      `;
+    }
+
+    // SCREEN 2: Instructions & Rules Screen (Triggers Screen 3 Confirmation Modal)
+    function renderScreen2Rules() {
+      const rules = [
+        "Make sure you guys grab a drink and sit together. Relax!",
+        "It'll take max to max 5 minutes.",
+        "This link will work only one time. If you guys mess it up, you'll have to pay me treats to send it again!",
+        "You'll have 4 tasks to complete.",
+        "Once you complete them, you get the actual wedding gift.",
+        "Yeah, that's it! Cheers! 🥂"
+      ];
+
+      return `
+        <div class="zine-card p-6 sm:p-7 screen-enter">
+          <div class="washi-tape-sage w-28 h-6 mx-auto -mt-9 mb-4 rotate-1"></div>
+
+          <div class="flex items-center justify-between mb-2">
+            <span class="font-mono-stamp text-xs font-bold bg-[#2A9D8F] text-white px-2.5 py-0.5 rounded-md border border-[#1A1A1A]">
+              GROUND RULES
+            </span>
+            <span class="font-mono-stamp text-xs text-[#555] font-bold">⏱ MAX 5 MINS</span>
+          </div>
+
+          <h2 class="font-display text-3xl font-extrabold mb-1.5">Before we begin...</h2>
+          <p class="text-sm text-[#444] font-medium mb-5">
+            Okay, this is just a small activity for you guys!
+          </p>
+
+          <div class="bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-2xl p-4 mb-6 space-y-3">
+            ${rules.map((rule, idx) => `
+              <div class="flex items-start gap-3">
+                <span class="font-mono-stamp text-xs font-bold w-6 h-6 rounded-full bg-[#FFB800] border-2 border-[#1A1A1A] flex items-center justify-center shrink-0 mt-0.5">
+                  ${idx + 1}
+                </span>
+                <p class="text-sm text-[#1A1A1A] font-medium leading-snug">${rule}</p>
+              </div>
+            `).join("")}
+          </div>
+
+          <button onclick="openConfirmModal()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+            BEGIN TASK →
+          </button>
+        </div>
+      `;
+    }
+
+    // SCREEN 3: Modal Handlers
+    function openConfirmModal() {
+      const modal = document.getElementById("confirmModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeConfirmModal() {
+      const modal = document.getElementById("confirmModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function confirmAndStartSession() {
+      state.sessionStarted = true;
+      saveState();
+      closeConfirmModal();
+      goToStep(4);
+    }
+
+    // SCREEN 4: Task 1 — The Candid Selfie (1 of 3 active tasks)
+    function renderScreen4Task1Selfie() {
+      const hasPhoto = Boolean(state.selfieDataUrl);
+
+      return `
+        <div class="zine-card p-6 sm:p-7 screen-enter">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono-stamp text-xs font-bold bg-[#2A9D8F] text-white px-3 py-1 rounded-full border-2 border-[#1A1A1A]">
+              TASK 01 • 1 OF 3
+            </span>
+            <span class="font-mono-stamp text-xs font-bold text-[#555]">📸 SNAPSHOT</span>
+          </div>
+
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold mb-1.5 leading-tight">
+            This is going to be a quick one!
+          </h2>
+          <p class="text-[15px] text-[#333] font-medium mb-5">
+            Takkunu take a candid selfie together and send!
+          </p>
+
+          <!-- Hidden File Input -->
+          <input
+            id="selfieFileInput"
+            type="file"
+            accept="image/*"
+            capture="user"
+            onchange="handleSelfieSelection(event)"
+            class="hidden"
+          />
+
+          <div class="mb-5">
+            ${hasPhoto ? `
+              <!-- Tilted Polaroid Frame -->
+              <div class="bg-white border-2 border-[#1A1A1A] p-3 pb-4 rounded-md shadow-[5px_5px_0px_#1A1A1A] -rotate-1 relative max-w-[300px] mx-auto transition-all">
+                <div class="washi-tape w-24 h-5 mx-auto -mt-6 mb-2 rotate-2"></div>
+                <div class="aspect-square w-full overflow-hidden border-2 border-[#1A1A1A] bg-[#FAF6EE]">
+                  <img src="${state.selfieDataUrl}" alt="Candid Selfie" class="w-full h-full object-cover" />
+                </div>
+                <div class="mt-3 flex items-center justify-between px-1">
+                  <span class="font-mono-stamp text-[10px] font-bold text-[#1A1A1A]">20 NOV 2026 • LOCKED IN</span>
+                  ${!state.selfieSubmitted ? `
+                    <button type="button" onclick="triggerCameraPicker()" class="font-mono-stamp text-[11px] underline text-[#E63946] font-bold">
+                      Retake
+                    </button>
+                  ` : `
+                    <span class="font-mono-stamp text-[10px] font-bold text-[#2A9D8F]">SAVED ✓</span>
+                  `}
+                </div>
+              </div>
+            ` : `
+              <!-- Camera / Gallery Dropzone -->
+              <div onclick="triggerCameraPicker()" class="cursor-pointer border-2 border-dashed border-[#1A1A1A] bg-[#FAF6EE] hover:bg-[#FFF8E7] transition-colors rounded-2xl p-6 text-center">
+                <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-[#FFB800] border-2 border-[#1A1A1A] flex items-center justify-center shadow-[3px_3px_0px_#1A1A1A]">
+                  <svg class="w-8 h-8 text-[#1A1A1A]" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                    <circle cx="12" cy="13" r="3.5"/>
+                  </svg>
+                </div>
+                <p class="font-bold text-sm text-[#1A1A1A] mb-1">Tap to snap or pick from gallery</p>
+                <p class="text-xs text-[#555]">No filters, unfiltered wedding chaos only!</p>
+              </div>
+            `}
+          </div>
+
+          ${!state.selfieSubmitted ? `
+            <button onclick="handleSayCheeseAction()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+              ${hasPhoto ? "Send This Selfie! 📸" : "Say Cheeeeeese! 📸"}
+            </button>
+          ` : `
+            <!-- Post-Upload Completion Card -->
+            <div class="bg-[#FFF3B0] border-2 border-[#1A1A1A] rounded-2xl p-4 text-center shadow-[4px_4px_0px_#1A1A1A] screen-enter">
+              <p class="font-bold text-base text-[#1A1A1A] mb-3">
+                Avlodan makkale, adhutha task polama? 😂
+              </p>
+              <button onclick="goToStep(5)" class="tactile-btn bg-[#2A9D8F] text-white w-full py-3 px-5 text-base">
+                NEXT →
+              </button>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function triggerCameraPicker() {
+      const input = document.getElementById("selfieFileInput");
+      if (input) input.click();
+    }
+
+    async function handleSelfieSelection(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      showToast("Developing your Polaroid...", "📸");
+      try {
+        const compressed = await compressImageFile(file, 900, 0.85);
+        state.selfieDataUrl = compressed;
+        state.selfieSubmitted = false;
+        saveState();
+        renderScreen();
+      } catch (err) {
+        showToast("Could not load photo — try another image!", "⚠️");
+      }
+    }
+
+    function handleSayCheeseAction() {
+      if (!state.selfieDataUrl) {
+        triggerCameraPicker();
+        return;
+      }
+      state.selfieSubmitted = true;
+      saveState();
+      renderScreen();
+    }
+
+    // SCREEN 5: Task 2 — The Feelings Check (2 of 3 active tasks)
+    function renderScreen5Task2Feelings() {
+      return `
+        <div class="zine-card p-6 sm:p-7 screen-enter">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono-stamp text-xs font-bold bg-[#2A9D8F] text-white px-3 py-1 rounded-full border-2 border-[#1A1A1A]">
+              TASK 02 • 2 OF 3
+            </span>
+            <span class="font-mono-stamp text-xs font-bold text-[#555]">✍️ HEART CHECK</span>
+          </div>
+
+          <h2 class="font-display text-3xl font-extrabold mb-3">Hmmmmmm! 👀</h2>
+
+          <div class="space-y-2 text-[15px] text-[#222] leading-relaxed mb-5">
+            <p>
+              Love marriage naale pala sambavangal nadandurukum! I didn't get to hear your love story ipo varaikum!
+            </p>
+            <p class="font-bold text-[#1A1A1A]">
+              But tell me... How do you guys feel today, at this very moment?
+            </p>
+          </div>
+
+          <!-- Lined Airmail Notebook Textarea -->
+          <div class="airmail-border mb-5">
+            <div class="bg-[#FFFDF9] rounded-xl p-3">
+              <div class="flex items-center justify-between border-b border-[#1A1A1A]/15 pb-1.5 mb-1">
+                <span class="font-mono-stamp text-[10px] font-bold text-[#E63946] uppercase">YOUR ANSWER</span>
+                <span class="font-mono-stamp text-[10px] text-[#555]">NO CHARACTER LIMIT</span>
+              </div>
+              <textarea
+                id="feelingsTextarea"
+                rows="5"
+                oninput="state.feelingsText = this.value; saveState();"
+                placeholder="Pour your hearts out..."
+                class="w-full lined-paper text-sm text-[#1A1A1A] focus:outline-none resize-none bg-transparent"
+              >${state.feelingsText}</textarea>
+            </div>
+          </div>
+
+          ${!state.feelingsSubmitted ? `
+            <button onclick="submitFeelingsTask()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+              SUBMIT ❤️
+            </button>
+          ` : `
+            <!-- Post-Submit Completion Card -->
+            <div class="bg-[#FFF3B0] border-2 border-[#1A1A1A] rounded-2xl p-4 text-center shadow-[4px_4px_0px_#1A1A1A] screen-enter">
+              <p class="font-bold text-base text-[#1A1A1A] mb-3">
+                Aduthu last task polama? 👀
+              </p>
+              <button onclick="goToStep(6)" class="tactile-btn bg-[#2A9D8F] text-white w-full py-3 px-5 text-base">
+                NEXT →
+              </button>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function submitFeelingsTask() {
+      const val = document.getElementById("feelingsTextarea").value.trim();
+      if (!val) {
+        showToast("Pour at least a few words out machaa! ✍️", "⚠️");
+        return;
+      }
+      state.feelingsText = val;
+      state.feelingsSubmitted = true;
+      saveState();
+      renderScreen();
+    }
+
+    // SCREEN 6: The Plot Twist — Time Capsule Reveal (Midnight Indigo Shift)
+    function renderScreen6PlotTwist() {
+      return `
+        <div class="zine-card p-6 sm:p-7 screen-enter">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono-stamp text-xs font-bold bg-[#FFB800] text-[#131528] px-3 py-1 rounded-full">
+              PLOT TWIST
+            </span>
+            <span class="font-mono-stamp text-xs font-bold text-[#FFB800]">2026 ➔ 2046</span>
+          </div>
+
+          <h2 class="font-display text-3xl font-extrabold text-[#FAF6EE] leading-tight mb-4">
+            Okayyyyy! Now comes the actual reason! 👀
+          </h2>
+
+          <!-- Vector Time Capsule Illustration -->
+          <div class="bg-[#131528] border-2 border-[#FFB800]/60 rounded-2xl p-4 mb-5 flex items-center justify-center">
+            <svg viewBox="0 0 260 124" class="w-full max-w-[235px] h-auto">
+              <circle cx="130" cy="62" r="52" fill="#FFB800" opacity="0.12"/>
+              <rect x="96" y="16" width="68" height="92" rx="34" fill="#1B1E38" stroke="#FFB800" stroke-width="3"/>
+              <rect x="90" y="12" width="80" height="12" rx="6" fill="#FFB800" stroke="#131528" stroke-width="2"/>
+              <rect x="90" y="100" width="80" height="12" rx="6" fill="#FFB800" stroke="#131528" stroke-width="2"/>
+              <circle cx="130" cy="62" r="21" fill="#FAF6EE" stroke="#FFB800" stroke-width="2.5"/>
+              <line x1="130" y1="62" x2="130" y2="49" stroke="#131528" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="130" y1="62" x2="140" y2="62" stroke="#E63946" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="20" y="50" width="58" height="24" rx="6" fill="#2A9D8F"/>
+              <text x="49" y="66" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle" fill="#FFF">2026</text>
+              <rect x="182" y="50" width="58" height="24" rx="6" fill="#E63946"/>
+              <text x="211" y="66" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle" fill="#FFF">2046</text>
+            </svg>
+          </div>
+
+          <div class="space-y-2.5 text-[15px] leading-relaxed text-[#FAF6EE]/95 mb-5">
+            <p class="font-extrabold text-lg text-[#FFB800]">
+              This is basically a Time Capsule! ❤️
+            </p>
+            <p class="font-bold text-base text-[#FAF6EE]">
+              20 years kalichu, Ada open pani paatha epdi irkum?
+            </p>
+            <p class="text-sm text-[#FAF6EE]/85">
+              Just imagine opening it after 20 years and looking back at this exact moment. Ungaloda selfie, inniku neenga feel panradhu, everything!
+            </p>
+          </div>
+
+          <div class="bg-[#2A9D8F]/20 border border-[#2A9D8F] rounded-xl p-3 mb-6">
+            <p class="font-mono-stamp text-xs font-bold text-[#7EE8DB]">
+              PS: Bayapadadinga. Actual gift-um irukku xD
+            </p>
+          </div>
+
+          <button onclick="goToStep(7)" class="tactile-btn tactile-btn-gold-dark w-full py-3.5 px-6 text-base">
+            CONTINUE TO FINAL TASK →
+          </button>
+        </div>
+      `;
+    }
+
+    // SCREEN 7: Task 3 — One Last Thing (3 of 3 active tasks)
+    function renderScreen7Task3Final() {
+      return `
+        <div class="zine-card p-6 sm:p-7 screen-enter">
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono-stamp text-xs font-bold bg-[#E63946] text-white px-3 py-1 rounded-full border-2 border-[#1A1A1A]">
+              TASK 03 • 3 OF 3
+            </span>
+            <span class="font-mono-stamp text-xs font-bold text-[#555]">💌 TO 2046 SELVES</span>
+          </div>
+
+          <h2 class="font-display text-3xl font-extrabold mb-2">One last thing! ❤️</h2>
+
+          <p class="text-[15px] text-[#222] leading-relaxed mb-5">
+            Is there anything else you guys want to add to this capsule? Something you might want to see, read, remember or laugh about 20 years from now! It can literally be anything. No restrictions!
+          </p>
+
+          <div class="border-2 border-[#1A1A1A] bg-[#FAF6EE] rounded-2xl p-3.5 mb-6 shadow-[3px_3px_0px_#1A1A1A]">
+            <label class="block font-mono-stamp text-[10px] font-bold text-[#555] uppercase mb-1">
+              YOUR NOTE FOR 2046
+            </label>
+            <textarea
+              id="capsuleExtraTextarea"
+              rows="5"
+              oninput="state.capsuleExtraText = this.value; saveState();"
+              placeholder="Predictions, inside jokes, a dare for your 2046 selves..."
+              class="w-full lined-paper text-sm text-[#1A1A1A] focus:outline-none resize-none bg-transparent"
+            >${state.capsuleExtraText}</textarea>
+          </div>
+
+          <button onclick="submitTask3()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+            SUBMIT ❤️
+          </button>
+        </div>
+      `;
+    }
+
+    function submitTask3() {
+      const val = document.getElementById("capsuleExtraTextarea").value.trim();
+      if (!val) {
+        showToast("Write something for your 2046 selves first! 💌", "⚠️");
+        return;
+      }
+      state.capsuleExtraText = val;
+      saveState();
+      goToStep(8);
+    }
+
+    // SCREEN 8: Email Registration + Background PDF & Silent Dispatch
+    function renderScreen8EmailReg() {
+      return `
+        <div class="zine-card p-6 sm:p-7 screen-enter">
+          <div class="washi-tape w-28 h-6 mx-auto -mt-9 mb-4 -rotate-1"></div>
+
+          <div class="w-14 h-14 rounded-2xl bg-[#FFB800] border-2 border-[#1A1A1A] shadow-[3px_3px_0px_#1A1A1A] flex items-center justify-center mb-4">
+            <span class="text-2xl">📮</span>
+          </div>
+
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold leading-tight mb-2">
+            Where should we send your time capsule?
+          </h2>
+          <p class="text-sm text-[#444] leading-relaxed mb-5">
+            Enter the email address(es) where you'd like to receive this little piece of history 20 years from now!
+          </p>
+
+          <div class="space-y-4 mb-6">
+            <div>
+              <label class="block font-mono-stamp text-xs font-bold uppercase text-[#1A1A1A] mb-1.5">
+                PRIMARY EMAIL ADDRESS <span class="text-[#E63946]">*</span>
+              </label>
+              <input
+                id="primaryEmailInput"
+                type="email"
+                required
+                value="${state.primaryEmail}"
+                oninput="state.primaryEmail = this.value; saveState();"
+                placeholder="manoj@gmail.com"
+                class="w-full bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-xl px-4 py-3 text-sm font-semibold text-[#1A1A1A] focus:outline-none focus:bg-white shadow-[3px_3px_0px_#1A1A1A]"
+              />
+            </div>
+
+            <div>
+              <label class="block font-mono-stamp text-xs font-bold uppercase text-[#1A1A1A] mb-1.5">
+                PARTNER / BACKUP EMAIL <span class="text-[#666] font-normal">(OPTIONAL)</span>
+              </label>
+              <input
+                id="backupEmailInput"
+                type="email"
+                value="${state.backupEmail}"
+                oninput="state.backupEmail = this.value; saveState();"
+                placeholder="lakshmi@gmail.com"
+                class="w-full bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-xl px-4 py-3 text-sm font-semibold text-[#1A1A1A] focus:outline-none focus:bg-white shadow-[3px_3px_0px_#1A1A1A]"
+              />
+            </div>
+          </div>
+
+          <button id="sealSubmitBtn" onclick="handleEmailRegistrationSubmit()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+            SEAL MY TIME CAPSULE →
+          </button>
+        </div>
+      `;
+    }
+
+    async function handleEmailRegistrationSubmit() {
+      const primary = document.getElementById("primaryEmailInput").value.trim();
+      const backup = document.getElementById("backupEmailInput").value.trim();
+
+      if (!primary || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(primary)) {
+        showToast("Please enter a valid primary email address!", "⚠️");
+        return;
+      }
+
+      state.primaryEmail = primary;
+      state.backupEmail = backup;
+      saveState();
+
+      const btn = document.getElementById("sealSubmitBtn");
+      btn.disabled = true;
+      btn.innerHTML = `<span>⏳ Compiling 2046 Slambook...</span>`;
+
+      try {
+        // 1. Build 2-Page A4 Slambook PDF in background
+        const pdfResult = await buildSlambookPDFBlob();
+        cachedPdfBlob = pdfResult.blob;
+        state.pdfGenerated = true;
+
+        // 2. Silently dispatch payload to GK's configured webhook/email endpoint
+        await dispatchToGK(pdfResult.base64);
+      } catch (err) {
+        console.warn("Background compilation/dispatch notice:", err);
+      } finally {
+        saveState();
+        goToStep(9);
+      }
+    }
+
+    // =========================================================================
+    // 6. BACKGROUND 2-PAGE A4 SLAMBOOK PDF GENERATOR & SILENT DISPATCH
+    // =========================================================================
+    function populatePdfTemplate() {
+      const combinedEmails = state.backupEmail
+        ? `${state.primaryEmail}, ${state.backupEmail}`
+        : (state.primaryEmail || "manoj.and.lakshmi@gmail.com");
+
+      document.getElementById("pdfCapsuleId1").textContent = `ID: ${state.capsuleId}`;
+      document.getElementById("pdfCapsuleId2").textContent = `ID: ${state.capsuleId}`;
+      document.getElementById("pdfSelfieImg").src = state.selfieDataUrl || getFallbackSelfieSVG();
+      document.getElementById("pdfFeelingsText").textContent = state.feelingsText || "Captured on our wedding day!";
+      document.getElementById("pdfEmailsText").textContent = combinedEmails;
+      document.getElementById("pdfFutureNoteText").textContent = `"${state.capsuleExtraText || "Cheers to 20 years of madness!"}"`;
+    }
+
+    async function buildSlambookPDFBlob() {
+      populatePdfTemplate();
+      await document.fonts.ready;
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "pt",
+        format: "a4"
+      });
+
+      const p1 = document.getElementById("pdfRenderPage1");
+      const p2 = document.getElementById("pdfRenderPage2");
+
+      const canvas1 = await html2canvas(p1, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#FAF6EE"
+      });
+      pdf.addImage(canvas1.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, 595.28, 841.89);
+
+      pdf.addPage("a4", "portrait");
+      const canvas2 = await html2canvas(p2, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#FAF6EE"
+      });
+      pdf.addImage(canvas2.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, 595.28, 841.89);
+
+      const blob = pdf.output("blob");
+      const base64 = pdf.output("datauristring");
+      return { blob, base64 };
+    }
+
+    async function downloadSlambookPDF(forceRegenerate = false) {
+      showToast("Preparing 2-Page 2046 Slambook PDF...", "📄");
+      try {
+        if (!cachedPdfBlob || forceRegenerate) {
+          const res = await buildSlambookPDFBlob();
+          cachedPdfBlob = res.blob;
+        }
+        const url = URL.createObjectURL(cachedPdfBlob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `Manoj-Lakshmi-2046-TimeCapsule-${state.capsuleId}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast("Slambook PDF downloaded!", "🎉");
+      } catch (e) {
+        showToast("Could not generate PDF — try again!", "⚠️");
+      }
+    }
+
+    function downloadRawSelfie() {
+      if (!state.selfieDataUrl) {
+        showToast("No selfie uploaded in this session yet!", "⚠️");
+        return;
+      }
+      const a = document.createElement("a");
+      a.href = state.selfieDataUrl;
+      a.download = `Manoj-Lakshmi-Selfie-${state.capsuleId}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      showToast("Raw selfie downloaded!", "📸");
+    }
+
+    async function dispatchToGK(pdfDataUri) {
+      const recipients = state.backupEmail
+        ? `${state.primaryEmail}, ${state.backupEmail}`
+        : state.primaryEmail;
+
+      const summaryPayload = {
+        subject: `🎉 Manoj & Lakshmi Completed Their 2046 Time Capsule (${state.capsuleId})`,
+        capsule_id: state.capsuleId,
+        recipient_emails_for_2046: recipients,
+        delivery_date: CONFIG.deliveryDateLabel,
+        task_2_feelings_today: state.feelingsText,
+        task_3_message_to_2046: state.capsuleExtraText,
+        submitted_at: new Date().toISOString()
+      };
+
+      // 1. Web3Forms Integration (if GK pasted an access key)
+      if (CONFIG.web3formsAccessKey) {
+        try {
+          const formData = new FormData();
+          formData.append("access_key", CONFIG.web3formsAccessKey);
+          formData.append("subject", summaryPayload.subject);
+          formData.append("from_name", "2046 Time Capsule App");
+          formData.append("Capsule ID", summaryPayload.capsule_id);
+          formData.append("2046 Recipient Emails", summaryPayload.recipient_emails_for_2046);
+          formData.append("Task 2 - How They Felt Today", summaryPayload.task_2_feelings_today);
+          formData.append("Task 3 - Note To Future Selves", summaryPayload.task_3_message_to_2046);
+
+          if (cachedPdfBlob) {
+            formData.append("attachment", cachedPdfBlob, `Manoj-Lakshmi-2046-Slambook-${state.capsuleId}.pdf`);
+          }
+
+          const resp = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+          });
+          if (resp.ok) {
+            state.dispatchStatus = "Sent to GK via Web3Forms ✓";
+            return;
+          }
+        } catch (err) {
+          console.warn("Web3Forms error:", err);
+        }
+      }
+
+      // 2. Formspree Integration (if GK pasted a Formspree endpoint)
+      if (CONFIG.formspreeEndpoint) {
+        try {
+          const resp = await fetch(CONFIG.formspreeEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify(summaryPayload)
+          });
+          if (resp.ok) {
+            state.dispatchStatus = "Sent to GK via Formspree ✓";
+            return;
+          }
+        } catch (err) {
+          console.warn("Formspree error:", err);
+        }
+      }
+
+      // 3. Local Backup Saved (Always succeeds even offline!)
+      state.dispatchStatus = "Saved locally (Ready for GK PDF export)";
+    }
+
+    // SCREEN 9: Time Capsule Sealing Screen
+    function renderScreen9Sealing() {
+      const thumb = state.selfieDataUrl || getFallbackSelfieSVG();
+      const totalWords = `${state.feelingsText} ${state.capsuleExtraText}`
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean).length;
+      const emailDisplay = state.backupEmail
+        ? `${state.primaryEmail} + 1`
+        : state.primaryEmail;
+
+      return `
+        <div class="zine-card p-6 sm:p-7 screen-enter">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono-stamp text-[11px] font-bold bg-[#1A1A1A] text-[#FFB800] px-2.5 py-1 rounded-md">
+              ARCHIVE TICKET
+            </span>
+            <span class="font-mono-stamp text-[11px] font-bold text-[#555]">${state.capsuleId}</span>
+          </div>
+
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold mb-1">
+            Seal Your Capsule 🔒
+          </h2>
+          <p class="text-sm text-[#444] mb-4">
+            Everything is packed. Stamp the ticket below to lock it away for 20 years!
+          </p>
+
+          <!-- Interactive Keepsake Ticket -->
+          <div class="bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-2xl p-4 mb-5 relative overflow-hidden">
+            <div class="flex items-center gap-3.5 pb-3.5 border-b-2 border-dashed border-[#1A1A1A]/30">
+              <div class="w-16 h-16 rounded-xl overflow-hidden border-2 border-[#1A1A1A] shrink-0 bg-white relative">
+                <img src="${thumb}" alt="Blurred Selfie Preview" class="w-full h-full object-cover blur-[2.5px] scale-105" />
+                <span class="absolute inset-0 flex items-center justify-center text-base">🔒</span>
+              </div>
+              <div class="min-w-0">
+                <div class="font-mono-stamp text-[10px] font-bold text-[#2A9D8F] uppercase">DELIVERY SCHEDULE</div>
+                <div class="font-mono-stamp text-xs sm:text-sm font-bold text-[#1A1A1A]">
+                  ${CONFIG.sealedDateLabel} → ${CONFIG.deliveryDateLabel}
+                </div>
+                <div class="text-xs text-[#555] truncate mt-0.5">To: ${emailDisplay}</div>
+              </div>
+            </div>
+
+            <div class="pt-3 grid grid-cols-2 gap-2 font-mono-stamp text-[11px]">
+              <div class="bg-[#FFFDF9] border border-[#1A1A1A]/20 rounded-lg p-2">
+                <span class="text-[#666] block text-[9px]">WORDS PRESERVED</span>
+                <strong class="text-[#1A1A1A]">${totalWords} WORDS</strong>
+              </div>
+              <div class="bg-[#FFFDF9] border border-[#1A1A1A]/20 rounded-lg p-2">
+                <span class="text-[#666] block text-[9px]">VAULT STATUS</span>
+                <strong class="${state.isSealed ? "text-[#E63946]" : "text-[#FFB800]"}">
+                  ${state.isSealed ? "SEALED ✓" : "UNSTAMPED"}
+                </strong>
+              </div>
+            </div>
+
+            ${state.isSealed ? `
+              <!-- Slammed Vermilion Rubber Stamp -->
+              <div class="absolute inset-0 bg-[#FAF6EE]/45 backdrop-blur-[1px] flex items-center justify-center pointer-events-none">
+                <div class="stamp-slammed border-4 border-[#E63946] text-[#E63946] bg-[#FFFDF9]/95 px-4 py-2 rounded-xl font-mono-stamp font-extrabold text-base tracking-wider uppercase shadow-md">
+                  SEALED UNTIL 2046
+                </div>
+              </div>
+            ` : ""}
+          </div>
+
+          ${!state.isSealed ? `
+            <button onclick="stampAndSealCapsule()" class="tactile-btn bg-[#E63946] text-white w-full py-3.5 px-6 text-base">
+              TAP TO STAMP &amp; SEAL 🔴
+            </button>
+          ` : `
+            <div class="space-y-3 screen-enter">
+              <p class="text-center font-mono-stamp text-xs font-bold text-[#2A9D8F]">
+                ✨ Locked until 20 Nov 2046! Now for the main event...
+              </p>
+              <button onclick="goToStep(10)" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+                PROCEED TO GIFT →
+              </button>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function stampAndSealCapsule() {
+      state.isSealed = true;
+      state.linkLocked = true; // Locks one-time link state in localStorage
+      saveState();
+      fireConfetti();
+      renderScreen();
+      showToast("Time Capsule officially sealed until 2046!", "🔒");
+    }
+
+    // SCREEN 10: Actual Wedding Gift Teaser
+    function renderScreen10GiftTeaser() {
+      return `
+        <div class="zine-card p-6 sm:p-7 text-center screen-enter">
+          <div class="washi-tape-sage w-28 h-6 mx-auto -mt-9 mb-4 rotate-1"></div>
+
+          <span class="inline-block font-mono-stamp text-xs font-bold bg-[#2A9D8F] text-white px-3 py-1 rounded-full border-2 border-[#1A1A1A] mb-3">
+            MISSION COMPLETED
+          </span>
+
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-[#1A1A1A] leading-tight mb-1">
+            Avlodan Fraaaands!
+          </h2>
+          <p class="font-display text-xl font-bold text-[#E63946] mb-5">
+            Longu Liveu Happy Lifeu! ❤️
+          </p>
+
+          <!-- Interactive 3D-Styled Scrapbook Gift Box -->
+          <div
+            id="giftBoxContainer"
+            onclick="triggerGiftOpenSequence()"
+            class="cursor-pointer gift-wiggle ${state.giftOpened ? "gift-opened" : ""} bg-[#FAF6EE] border-2 border-[#1A1A1A] rounded-2xl p-6 mb-5 mx-auto max-w-[260px] shadow-[4px_4px_0px_#1A1A1A]"
+          >
+            <svg viewBox="0 0 160 150" class="w-36 h-36 mx-auto overflow-visible">
+              <ellipse cx="80" cy="138" rx="52" ry="8" fill="#1A1A1A" opacity="0.15"/>
+              <!-- Box Base -->
+              <rect x="30" y="64" width="100" height="70" rx="8" fill="#FFB800" stroke="#1A1A1A" stroke-width="3.5"/>
+              <rect x="70" y="64" width="20" height="70" fill="#E63946" stroke="#1A1A1A" stroke-width="3"/>
+              <!-- Animated Lid -->
+              <g class="gift-lid">
+                <rect x="22" y="44" width="116" height="22" rx="6" fill="#FFD166" stroke="#1A1A1A" stroke-width="3.5"/>
+                <rect x="70" y="44" width="20" height="22" fill="#E63946" stroke="#1A1A1A" stroke-width="3"/>
+                <path d="M80 44 C58 18, 38 34, 68 44 Z" fill="#E63946" stroke="#1A1A1A" stroke-width="3"/>
+                <path d="M80 44 C102 18, 122 34, 92 44 Z" fill="#E63946" stroke="#1A1A1A" stroke-width="3"/>
+                <circle cx="80" cy="43" r="6" fill="#FFB800" stroke="#1A1A1A" stroke-width="2.5"/>
+              </g>
+              <!-- Sparkles -->
+              <path d="M20 24 L23 31 L30 34 L23 37 L20 44 L17 37 L10 34 L17 31 Z" fill="#2A9D8F" stroke="#1A1A1A" stroke-width="1.5"/>
+              <path d="M140 18 L142 23 L147 25 L142 27 L140 32 L138 27 L133 25 L138 23 Z" fill="#E63946" stroke="#1A1A1A" stroke-width="1.5"/>
+            </svg>
+            <span class="font-mono-stamp text-[10px] font-bold text-[#555] block mt-1">TAP BOX TO UNWRAP</span>
+          </div>
+
+          <p class="font-bold text-lg text-[#1A1A1A] mb-1">
+            Here is your ACTUAL GIFT!
+          </p>
+          <p class="text-sm text-[#555] mb-6">
+            All that build-up for this moment. 😂
+          </p>
+
+          <button onclick="triggerGiftOpenSequence()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] w-full py-3.5 px-6 text-base">
+            OPEN YOUR GIFT 🎁
+          </button>
+        </div>
+      `;
+    }
+
+    function triggerGiftOpenSequence() {
+      const box = document.getElementById("giftBoxContainer");
+      if (box) {
+        box.classList.remove("gift-wiggle");
+        box.classList.add("gift-opened");
+      }
+      state.giftOpened = true;
+      saveState();
+      fireConfetti();
+      setTimeout(() => {
+        goToStep(11);
+      }, 520);
+    }
+
+    // SCREEN 11: Cleartrip Voucher Grand Finale
+    function renderScreen11VoucherFinale() {
+      return `
+        <div class="space-y-4 screen-enter">
+          <div class="text-center">
+            <span class="inline-block font-mono-stamp text-xs font-bold bg-[#FFB800] text-[#1A1A1A] px-3 py-1 rounded-full border-2 border-[#1A1A1A] mb-2">
+              GIFT UNLOCKED
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-[#1A1A1A] leading-tight">
+              Surprise! ✈️
+            </h2>
+            <p class="font-display text-lg font-bold text-[#2A9D8F] mt-0.5">
+              PS: To many more happy travels ✈️
+            </p>
+          </div>
+
+          <!-- PERFORATED CLEARTRIP BOARDING PASS VOUCHER -->
+          <div class="bg-[#FFFDF9] border-2 border-[#1A1A1A] rounded-2xl shadow-[6px_6px_0px_#1A1A1A] overflow-hidden relative">
+            <div class="bg-[#FF5A1F] text-white px-5 py-3 border-b-2 border-[#1A1A1A] flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="bg-white text-[#FF5A1F] font-extrabold text-xs px-2 py-0.5 rounded-md border border-[#1A1A1A]">
+                  cleartrip
+                </span>
+                <span class="font-mono-stamp text-xs font-bold tracking-wider">GIFT VOUCHER</span>
+              </div>
+              <span class="font-mono-stamp text-xs font-bold">${CONFIG.voucherAmount}</span>
+            </div>
+
+            <div class="p-5 pb-4">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <div class="font-mono-stamp text-[10px] text-[#666] font-bold">PASSENGERS</div>
+                  <div class="font-display text-lg sm:text-xl font-extrabold text-[#1A1A1A]">MANOJ &amp; LAKSHMI</div>
+                </div>
+                <div class="text-2xl">✈️</div>
+                <div class="text-right">
+                  <div class="font-mono-stamp text-[10px] text-[#666] font-bold">DESTINATION</div>
+                  <div class="font-display text-lg sm:text-xl font-extrabold text-[#2A9D8F]">ANYWHERE</div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 bg-[#FAF6EE] border border-[#1A1A1A] rounded-xl p-2.5 text-center font-mono-stamp">
+                <div>
+                  <div class="text-[9px] text-[#666]">VALUE</div>
+                  <div class="text-xs font-bold text-[#1A1A1A]">${CONFIG.voucherAmount}</div>
+                </div>
+                <div class="border-x border-[#1A1A1A]/20">
+                  <div class="text-[9px] text-[#666]">PIN</div>
+                  <div class="text-xs font-bold text-[#1A1A1A]">${CONFIG.voucherPin}</div>
+                </div>
+                <div>
+                  <div class="text-[9px] text-[#666]">CAPSULE</div>
+                  <div class="text-xs font-bold text-[#E63946]">2046 ✓</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Perforated Tear Line -->
+            <div class="relative py-2 flex items-center">
+              <div class="ticket-notch-left"></div>
+              <div class="w-full border-t-2 border-dashed border-[#1A1A1A]/40"></div>
+              <div class="ticket-notch-right"></div>
+            </div>
+
+            <!-- Copyable Voucher Code -->
+            <div class="p-5 pt-3 bg-[#FAF6EE]/70 space-y-2.5">
+              <div class="flex items-center justify-between gap-2 bg-white border-2 border-[#1A1A1A] rounded-xl p-3">
+                <div class="min-w-0">
+                  <div class="font-mono-stamp text-[9px] text-[#666] font-bold">VOUCHER CODE</div>
+                  <div class="font-mono-stamp text-sm font-extrabold text-[#1A1A1A] tracking-wide truncate">
+                    ${CONFIG.voucherCode}
+                  </div>
+                </div>
+                <button onclick="copyVoucherCode()" class="tactile-btn bg-[#FFB800] text-[#1A1A1A] px-3 py-2 text-xs shrink-0">
+                  COPY VOUCHER CODE
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Closing Wishes Card -->
+          <div class="zine-card p-5 text-center">
+            <p class="font-display text-lg font-bold text-[#1A1A1A] leading-snug">
+              To a lifetime of love, laughter &amp; countless adventures together! ❤️
+            </p>
+            <p class="font-mono-stamp text-[11px] text-[#666] mt-2">
+              — With love, GK 🥂
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    function copyVoucherCode() {
+      const tempInput = document.createElement("input");
+      tempInput.value = `${CONFIG.voucherCode} (PIN: ${CONFIG.voucherPin})`;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      showToast("Cleartrip voucher code & PIN copied!", "🎟️");
+    }
+
+    // =========================================================================
+    // 7. DISCREET HOST / ADMIN CONTROLS FOR GK (Triple-tap footer or ?admin=1)
+    // =========================================================================
+    function openAdminModal() {
+      document.getElementById("admCapsuleId").textContent = state.capsuleId;
+      document.getElementById("admLockStatus").textContent = state.linkLocked ? "LOCKED (USED)" : "ACTIVE";
+      document.getElementById("admEmails").textContent = state.primaryEmail
+        ? `${state.primaryEmail}${state.backupEmail ? ", " + state.backupEmail : ""}`
+        : "Not entered yet";
+      document.getElementById("admDispatchStatus").textContent = state.dispatchStatus;
+
+      const screens = [
+        { s: 1, t: "1.Welcome" },
+        { s: 2, t: "2.Rules" },
+        { s: 4, t: "4.Selfie" },
+        { s: 5, t: "5.Feelings" },
+        { s: 6, t: "6.Twist" },
+        { s: 7, t: "7.Task 3" },
+        { s: 8, t: "8.Email" },
+        { s: 9, t: "9.Seal" },
+        { s: 10, t: "10.Gift" },
+        { s: 11, t: "11.Voucher" }
+      ];
+
+      document.getElementById("admJumpGrid").innerHTML = screens.map(item => `
+        <button
+          onclick="adminJumpTo(${item.s})"
+          class="font-mono-stamp text-[10px] font-bold py-1.5 px-1 rounded border border-[#1A1A1A] ${
+            state.step === item.s ? "bg-[#FFB800]" : "bg-[#FAF6EE]"
+          }"
+        >
+          ${item.t}
+        </button>
+      `).join("");
+
+      const modal = document.getElementById("adminModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeAdminModal() {
+      const modal = document.getElementById("adminModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function adminJumpTo(stepNum) {
+      closeAdminModal();
+      // Temporarily bypass lock for host inspection
+      const prevLock = state.linkLocked;
+      state.linkLocked = false;
+      goToStep(stepNum);
+      state.linkLocked = prevLock;
+      saveState();
+    }
+
+    function adminResetAll() {
+      localStorage.removeItem(CONFIG.storageKey);
+      cachedPdfBlob = null;
+      state = { ...defaultState, capsuleId: generateCapsuleId() };
+      saveState();
+      closeAdminModal();
+      goToStep(1);
+      showToast("Session & one-time link lock reset!", "🔓");
+    }
+
+    // Triple-tap detection on footer
+    let footerTapCount = 0;
+    let footerTapTimer = null;
+    document.getElementById("footerTrigger").addEventListener("click", () => {
+      footerTapCount++;
+      clearTimeout(footerTapTimer);
+      if (footerTapCount >= 3) {
+        footerTapCount = 0;
+        openAdminModal();
+      } else {
+        footerTapTimer = setTimeout(() => {
+          footerTapCount = 0;
+        }, 700);
+      }
+    });
+
+    // =========================================================================
+    // 8. CONFETTI CELEBRATION ENGINE
+    // =========================================================================
+    function fireConfetti() {
+      const canvas = document.getElementById("confettiCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ["#FFB800", "#E63946", "#2A9D8F", "#1A1A1A", "#FF5A1F"];
+      const pieces = Array.from({ length: 85 }, () => ({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * 140,
+        w: 8 + Math.random() * 6,
+        h: 5 + Math.random() * 5,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: (Math.random() - 0.5) * 4.5,
+        vy: 3.2 + Math.random() * 4.2,
+        rot: Math.random() * 360,
+        vrot: (Math.random() - 0.5) * 10
+      }));
+
+      let frame = 0;
+      function animate() {
+        frame++;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vrot;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+        if (frame < 115) {
+          requestAnimationFrame(animate);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      animate();
+    }
+
+    // =========================================================================
+    // 9. INITIALIZE APP ON LOAD
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      // Restore Midnight Mode if refreshed directly on Screen 6
+      if (state.step === 6 && !state.linkLocked) {
+        document.body.classList.add("midnight-mode");
+      }
+      renderScreen();
+
+      // Auto-open Host Console if ?admin=1 is present in URL
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("admin") === "1") {
+        openAdminModal();
+      }
+    });
+  </script>
+</body>
+</html>
